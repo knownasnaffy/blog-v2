@@ -52,8 +52,8 @@ const structuredData = {
 <!doctype html>
 <html
   dir={SITE.dir}
-  lang=`${SITE.lang ?? "en"}`
-  class={`${scrollSmooth && "scroll-smooth"}`}
+  lang={`${SITE.lang ?? "en"}`}
+  class={`${scrollSmooth ? "scroll-smooth" : ""}`}
 >
   <head>
     <meta charset="UTF-8" />
@@ -267,10 +267,15 @@ const structuredData = {
 
   .site-cursor-glow {
     position: absolute;
-    inset: 0;
-    transform: translateZ(0);
+    left: 0;
+    top: 0;
+    width: 1100px;
+    height: 1100px;
+    margin-left: -550px;
+    margin-top: -550px;
+    transform: translate(var(--site-cx, 50vw), var(--site-cy, 50vh)) translateZ(0);
     background: radial-gradient(
-      550px circle at var(--site-cx, 50%) var(--site-cy, 50%),
+      circle,
       color-mix(in oklab, var(--accent) 6%, transparent) 0%,
       color-mix(in oklab, var(--accent) 4%, transparent) 15%,
       color-mix(in oklab, var(--accent) 2.5%, transparent) 25%,
@@ -283,6 +288,7 @@ const structuredData = {
     opacity: 0;
     transition: opacity 0.5s ease;
     will-change: transform;
+    pointer-events: none;
   }
 
   .site-cursor-glow.active {
@@ -310,21 +316,24 @@ const structuredData = {
     cursorCleanup = new AbortController();
     const { signal } = cursorCleanup;
 
-    const backdrop = document.querySelector<HTMLElement>(".site-backdrop");
     const cursorGlow = document.querySelector<HTMLElement>(".site-cursor-glow");
+    let ticking = false;
 
-    if (backdrop && cursorGlow) {
+    if (cursorGlow) {
       document.addEventListener(
         "mousemove",
         (e: MouseEvent) => {
-          // Use requestAnimationFrame for performance optimization
-          requestAnimationFrame(() => {
-            backdrop.style.setProperty("--site-cx", `${e.clientX}px`);
-            backdrop.style.setProperty("--site-cy", `${e.clientY}px`);
-            if (!cursorGlow.classList.contains("active")) {
-              cursorGlow.classList.add("active");
-            }
-          });
+          if (!ticking) {
+            window.requestAnimationFrame(() => {
+              cursorGlow.style.setProperty("--site-cx", `${e.clientX}px`);
+              cursorGlow.style.setProperty("--site-cy", `${e.clientY}px`);
+              if (!cursorGlow.classList.contains("active")) {
+                cursorGlow.classList.add("active");
+              }
+              ticking = false;
+            });
+            ticking = true;
+          }
         },
         { signal }
       );

@@ -24,52 +24,30 @@ if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
 ---
 
 <nav class="app-layout mt-6 mb-2" aria-label="breadcrumb">
-  <div class="breadcrumb-bar flex items-center gap-1 text-sm">
-    {/* Home icon */}
+  <div class="breadcrumb-bar inline-flex items-center gap-1.5 rounded-full border border-border/20 bg-muted/5 px-3 py-1.5 font-cartograph text-sm backdrop-blur-sm">
+    {/* Home icon / Root symbol */}
     <a
       href="/"
-      class="breadcrumb-link inline-flex shrink-0 items-center transition-colors duration-200 hover:text-accent"
+      class="breadcrumb-link inline-flex shrink-0 items-center justify-center rounded-md px-1.5 py-0.5 text-foreground/50 transition-colors duration-200 hover:bg-muted/10 hover:text-accent"
       aria-label="Home"
       title="Home"
     >
-      <svg
-        class="size-3.5"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-      >
-        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-        <polyline points="9 22 9 12 15 12 15 22"></polyline>
-      </svg>
+      ~
     </a>
     {
       breadcrumbList.map((breadcrumb, index) => (
         <>
           <span
-            class="breadcrumb-sep shrink-0 text-border/40"
+            class="breadcrumb-sep shrink-0 text-accent/40"
             aria-hidden="true"
           >
-            <svg
-              class="size-3.5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <polyline points="9 18 15 12 9 6" />
-            </svg>
+            /
           </span>
 
           {index + 1 === breadcrumbList.length ? (
             <span
               class:list={[
-                "breadcrumb-current truncate font-medium text-accent/80 capitalize",
+                "breadcrumb-current truncate px-1.5 py-0.5 text-accent/90 capitalize",
                 { lowercase: index > 0 },
               ]}
               aria-current="page"
@@ -79,7 +57,7 @@ if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
           ) : (
             <a
               href={`/${breadcrumb}/`}
-              class="breadcrumb-link shrink-0 capitalize transition-colors duration-200 hover:text-accent"
+              class="breadcrumb-link shrink-0 rounded-md px-1.5 py-0.5 capitalize text-foreground/50 transition-colors duration-200 hover:bg-muted/10 hover:text-accent"
             >
               {decodeURIComponent(breadcrumb)}
             </a>
@@ -91,12 +69,8 @@ if (breadcrumbList[0] === "tags" && !isNaN(Number(breadcrumbList[2]))) {
 </nav>
 
 <style>
-  .breadcrumb-link {
-    color: color-mix(in srgb, var(--foreground) 55%, transparent);
-  }
-
-  .breadcrumb-link:hover {
-    color: var(--accent);
+  .breadcrumb-bar {
+    -webkit-backdrop-filter: blur(4px);
   }
 
   .breadcrumb-current {
