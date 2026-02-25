@@ -84,11 +84,11 @@
     }
 
     code {
-      @apply rounded-md border border-border/20 bg-muted/15 px-1.5 py-0.5 wrap-break-word font-cartograph text-sm text-foreground shadow-sm shadow-black/5 before:content-none after:content-none;
+      @apply rounded-md bg-muted/15 px-1.5 py-0.5 wrap-break-word font-cartograph text-sm text-foreground shadow-sm shadow-black/5 before:content-none after:content-none;
     }
 
     .astro-code code {
-      @apply flex-[1_0_100%] bg-inherit p-4 overflow-x-auto text-[0.9em];
+      @apply flex-[1_0_100%] bg-inherit p-0;
     }
 
     blockquote {
@@ -233,21 +233,7 @@
   }
 
   .astro-code {
-      @apply relative flex flex-col rounded-xl border border-border/20 bg-(--shiki-light-bg) text-(--shiki-light) shadow-lg shadow-accent/5 overflow-hidden transition-all duration-300 hover:shadow-accent/10 hover:border-accent/30 [&_span]:text-(--shiki-light);
-  }
-
-  /* macOS window fake header */
-  .astro-code::before {
-    content: "";
-    display: block;
-    width: 100%;
-    min-height: 2.25rem;
-    background: color-mix(in srgb, var(--muted) 8%, transparent);
-    border-bottom: 1px solid color-mix(in srgb, var(--border) 15%, transparent);
-    background-image: radial-gradient(circle at 1.15rem 1.125rem, rgba(255, 95, 86, 0.8) 5.5px, transparent 6px),
-                      radial-gradient(circle at 2.4rem 1.125rem, rgba(255, 189, 46, 0.8) 5.5px, transparent 6px),
-                      radial-gradient(circle at 3.65rem 1.125rem, rgba(39, 201, 63, 0.8) 5.5px, transparent 6px);
-    background-repeat: no-repeat;
+    @apply flex border bg-(--shiki-light-bg) text-(--shiki-light) outline-border [&_span]:text-(--shiki-light);
   }
 
   html[data-theme="dark"] .astro-code {
