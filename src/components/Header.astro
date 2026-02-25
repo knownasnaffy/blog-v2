@@ -30,14 +30,15 @@ const isActive = (path: string) => {
   Skip to content
 </a>
 
-<header class="header-glass sticky top-0 z-40 w-full">
+<header id="main-header" class="sticky top-0 z-40 w-full transition-colors duration-300">
   <div class="app-layout">
     <div
       id="top-nav-wrap"
       class:list={[
-        "py-3 sm:py-4",
+        "py-3 sm:py-5",
         "relative w-full",
         "flex items-center justify-between",
+        "transition-all duration-300",
       ]}
     >
       <!-- Logo -->
@@ -144,6 +145,7 @@ const isActive = (path: string) => {
               class="nav-search-btn"
               title="Buscar (⌘K)"
               aria-label="Abrir búsqueda"
+              aria-keyshortcuts="Meta+K"
             >
               <IconSearch class="size-4.5" />
               <kbd class="nav-kbd">⌘K</kbd>
@@ -267,17 +269,23 @@ const isActive = (path: string) => {
 
   <!-- Bottom border with gradient -->
   <div
-    class="header-border-line h-px w-full bg-linear-to-r from-transparent via-border/40 to-transparent"
+    id="header-border"
+    class="header-border-line opacity-0 transition-opacity duration-300 h-px w-full bg-linear-to-r from-transparent via-border/40 to-transparent"
   >
   </div>
 </header>
 
 <style>
-  /* ─── Header Glass ─── */
-  .header-glass {
-    background: color-mix(in srgb, var(--background) 80%, transparent);
+  /* ─── Header Glass & Scroll Physics ─── */
+  #main-header {
+    background: transparent;
+  }
+  
+  :global(.header-scrolled) {
+    background: color-mix(in srgb, var(--background) 80%, transparent) !important;
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
   }
 
   .nav-logo-text {
@@ -354,6 +362,11 @@ const isActive = (path: string) => {
     transition: all 0.2s ease;
   }
 
+  .nav-link:focus-visible, .nav-icon-btn:focus-visible, .nav-search-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 50%, transparent);
+  }
+
   .nav-link:hover {
     color: var(--accent);
     background: color-mix(in srgb, var(--accent) 8%, transparent);
@@ -361,19 +374,22 @@ const isActive = (path: string) => {
 
   .nav-active {
     color: var(--accent);
-    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    /* Clean active state for desktop */
+    background: transparent;
   }
 
+  /* Glowing dot for active state (macOS Dock style) */
   .nav-active::after {
     content: "";
     position: absolute;
-    bottom: 0.125rem;
+    bottom: -0.1rem;
     left: 50%;
     transform: translateX(-50%);
-    width: 1rem;
-    height: 2px;
-    border-radius: 1px;
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 50%;
     background: var(--accent);
+    box-shadow: 0 0 6px color-mix(in srgb, var(--accent) 80%, transparent);
   }
 
   .nav-icon-btn {
@@ -424,9 +440,11 @@ const isActive = (path: string) => {
     padding: 0.15rem 0.35rem;
     border-radius: 0.25rem;
     border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
-    background: color-mix(in srgb, var(--background) 80%, transparent);
+    border-bottom-width: 2px;
+    background: color-mix(in srgb, var(--background) 90%, transparent);
     color: var(--muted-foreground);
-    box-shadow: 0 1px 0 color-mix(in srgb, var(--border) 50%, transparent);
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
   }
 
   .nav-search-btn:hover .nav-kbd {
@@ -646,6 +664,38 @@ const isActive = (path: string) => {
 
 <script>
   let headerCleanup: AbortController | null = null;
+  let scrollCleanup: AbortController | null = null;
+
+  function setupScrollPhysics() {
+    if (scrollCleanup) scrollCleanup.abort();
+    scrollCleanup = new AbortController();
+    const { signal } = scrollCleanup;
+
+    const header = document.getElementById("main-header");
+    const navWrap = document.getElementById("top-nav-wrap");
+    const borderLine = document.getElementById("header-border");
+
+    if (!header || !navWrap || !borderLine) return;
+
+    const handleScroll = () => {
+      if (window.scrollY > 15) {
+        header.classList.add("header-scrolled");
+        navWrap.classList.remove("sm:py-5");
+        navWrap.classList.add("sm:py-3");
+        borderLine.classList.remove("opacity-0");
+        borderLine.classList.add("opacity-100");
+      } else {
+        header.classList.remove("header-scrolled");
+        navWrap.classList.add("sm:py-5");
+        navWrap.classList.remove("sm:py-3");
+        borderLine.classList.add("opacity-0");
+        borderLine.classList.remove("opacity-100");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true, signal });
+    handleScroll(); // Init instantly
+  }
 
   function setupMobileNav() {
     // Cleanup previous listeners
@@ -688,8 +738,12 @@ const isActive = (path: string) => {
   }
 
   // Initial load
+  setupScrollPhysics();
   setupMobileNav();
 
   // Runs on view transitions navigation
-  document.addEventListener("astro:after-swap", setupMobileNav);
+  document.addEventListener("astro:after-swap", () => {
+    setupScrollPhysics();
+    setupMobileNav();
+  });
 </script>
