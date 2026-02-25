@@ -172,97 +172,104 @@ const isActive = (path: string) => {
     </div>
   </div>
 
-  <!-- ===================== MOBILE DROPDOWN MENU ===================== -->
+  <!-- ===================== MOBILE DROPDOWN MENU (Floating Sheet) ===================== -->
   <div id="mobile-menu" class="mobile-menu sm:hidden" aria-hidden="true">
-    <!-- Glass inner panel -->
-    <div class="mobile-menu-inner app-layout">
-      <nav class="mobile-nav-links">
-        <a
-          href="/posts"
-          class:list={["mobile-nav-link", { active: isActive("/posts") }]}
-          style="--i:0"
-        >
-          <span class="mobile-nav-indicator"></span>
-          <span>Posts</span>
-        </a>
-        <a
-          href="/tags"
-          class:list={["mobile-nav-link", { active: isActive("/tags") }]}
-          style="--i:1"
-        >
-          <span class="mobile-nav-indicator"></span>
-          <span>Tags</span>
-        </a>
-        <a
-          href="/about"
-          class:list={["mobile-nav-link", { active: isActive("/about") }]}
-          style="--i:2"
-        >
-          <span class="mobile-nav-indicator"></span>
-          <span>About</span>
-        </a>
-        {
-          SITE.showArchives && (
+    <!-- Overlay/Backdrop -->
+    <div class="mobile-menu-backdrop"></div>
+    
+    <!-- Floating Glass Panel -->
+    <div class="app-layout">
+      <div class="mobile-menu-panel relative mt-2 w-full mx-auto rounded-2xl border border-white/10 dark:border-white/5 overflow-hidden shadow-2xl">
+        <div class="mobile-menu-inner">
+          <nav class="mobile-nav-links">
             <a
-              href="/archives"
-              class:list={[
-                "mobile-nav-link",
-                { active: isActive("/archives") },
-              ]}
-              style="--i:3"
+              href="/posts"
+              class:list={["mobile-nav-link", { active: isActive("/posts") }]}
+              style="--i:0"
             >
-              <span class="mobile-nav-indicator" />
-              <span>Archives</span>
+              <span class="mobile-nav-indicator"></span>
+              <span>Posts</span>
             </a>
-          )
-        }
-        {
-          SITE.showGalleries && (
             <a
-              href="/galleries"
-              class:list={[
-                "mobile-nav-link",
-                { active: isActive("/galleries") },
-              ]}
-              style="--i:4"
+              href="/tags"
+              class:list={["mobile-nav-link", { active: isActive("/tags") }]}
+              style="--i:1"
             >
-              <span class="mobile-nav-indicator" />
-              <span>Galerías</span>
+              <span class="mobile-nav-indicator"></span>
+              <span>Tags</span>
             </a>
-          )
-        }
-      </nav>
+            <a
+              href="/about"
+              class:list={["mobile-nav-link", { active: isActive("/about") }]}
+              style="--i:2"
+            >
+              <span class="mobile-nav-indicator"></span>
+              <span>About</span>
+            </a>
+            {
+              SITE.showArchives && (
+                <a
+                  href="/archives"
+                  class:list={[
+                    "mobile-nav-link",
+                    { active: isActive("/archives") },
+                  ]}
+                  style="--i:3"
+                >
+                  <span class="mobile-nav-indicator" />
+                  <span>Archives</span>
+                </a>
+              )
+            }
+            {
+              SITE.showGalleries && (
+                <a
+                  href="/galleries"
+                  class:list={[
+                    "mobile-nav-link",
+                    { active: isActive("/galleries") },
+                  ]}
+                  style="--i:4"
+                >
+                  <span class="mobile-nav-indicator" />
+                  <span>Galerías</span>
+                </a>
+              )
+            }
+          </nav>
 
-      <!-- Divider -->
-      <div class="mobile-menu-divider"></div>
+          <!-- Divider -->
+          <div class="mobile-menu-divider"></div>
 
-      <!-- Bottom action row -->
-      <div class="mobile-menu-actions">
-        <button
-          data-search-trigger
-          class="mobile-action-btn"
-          title="Buscar (⌘K)"
-          aria-label="Abrir búsqueda"
-        >
-          <IconSearch class="size-4" />
-          <span>Search</span>
-        </button>
-        {
-          SITE.lightAndDarkMode && (
+          <!-- Bottom action row -->
+          <div class="mobile-menu-actions">
             <button
-              id="theme-btn-mobile"
-              class="mobile-action-btn"
-              title="Cambiar tema"
-              aria-label="auto"
-              aria-live="polite"
+              data-search-trigger
+              class="mobile-action-btn flex-1 justify-center"
+              title="Buscar (⌘K)"
+              aria-label="Abrir búsqueda"
             >
-              <IconMoon class="block size-4 dark:hidden" />
-              <IconSunHigh class="hidden size-4 dark:block" />
-              <span class="block dark:hidden">Dark mode</span>
-              <span class="hidden dark:block">Light mode</span>
+              <IconSearch class="size-4" />
+              <span>Search</span>
             </button>
-          )
-        }
+            {
+              SITE.lightAndDarkMode && (
+                <button
+                  id="theme-btn-mobile"
+                  class="mobile-action-btn flex-1 justify-center"
+                  title="Cambiar tema"
+                  aria-label="auto"
+                  aria-live="polite"
+                >
+                  <IconMoon class="block size-4 dark:hidden" />
+                  <IconSunHigh class="hidden size-4 dark:block" />
+                  <span class="block dark:hidden">Dark mode</span>
+                  <span class="hidden dark:block">Light mode</span>
+                </button>
+              )
+            }
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -526,31 +533,63 @@ const isActive = (path: string) => {
     transform: rotate(-45deg);
   }
 
-  /* ─── Mobile Menu Panel ─── */
+  /* ─── Mobile Menu Floating Sheet ─── */
   .mobile-menu {
-    position: relative;
-    overflow: hidden;
-    max-height: 0;
-    opacity: 0;
-    background: color-mix(in srgb, var(--background) 80%, transparent);
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    transition:
-      max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-      opacity 0.35s ease;
+    position: absolute; /* float over content */
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 30;
+    pointer-events: none; /* Let clicks pass through when closed */
   }
 
   .mobile-menu.is-open {
-    max-height: 420px;
-    opacity: 1;
+    pointer-events: auto;
   }
 
-  /* ─── Mobile Menu Inner (glass card) ─── */
+  .mobile-menu-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    transition: all 0.4s ease;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .mobile-menu.is-open .mobile-menu-backdrop {
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 1;
+    pointer-events: auto; /* Catch clicks outside */
+  }
+
+  .mobile-menu-panel {
+    background: color-mix(in srgb, var(--background) 80%, transparent);
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
+    /* Animation state */
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+    transform-origin: top center;
+    transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    visibility: hidden;
+  }
+
+  .mobile-menu.is-open .mobile-menu-panel {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    visibility: visible;
+  }
+
+  /* ─── Mobile Menu Inner ─── */
   .mobile-menu-inner {
     position: relative;
-    z-index: 2;
-    padding-top: 0.5rem;
-    padding-bottom: 1.25rem;
+    padding: 1rem;
   }
 
   /* ─── Mobile Nav Links ─── */
@@ -569,13 +608,15 @@ const isActive = (path: string) => {
     font-weight: 500;
     color: var(--foreground);
     border-radius: 0.75rem;
-    transition: all 0.25s ease;
+    transition: all 0.1s ease-out; /* Snappier hover */
     /* Stagger entrance */
     opacity: 0;
     transform: translateY(8px);
   }
 
   .mobile-menu.is-open .mobile-nav-link {
+    /* For the entrance animation, override the transition to use the entrance speed */
+    transition: all 0.25s ease;
     opacity: 1;
     transform: translateY(0);
     transition-delay: calc(0.08s * var(--i, 0) + 0.12s);
@@ -597,7 +638,7 @@ const isActive = (path: string) => {
     height: 6px;
     border-radius: 50%;
     background: color-mix(in srgb, var(--foreground) 20%, transparent);
-    transition: all 0.25s ease;
+    transition: all 0.1s ease-out; /* Snappier indicator */
     flex-shrink: 0;
   }
 
@@ -612,12 +653,12 @@ const isActive = (path: string) => {
 
   /* ─── Menu Divider ─── */
   .mobile-menu-divider {
-    margin: 0.625rem 1rem;
+    margin: 0.75rem 0.5rem;
     height: 1px;
     background: linear-gradient(
       90deg,
       transparent,
-      color-mix(in srgb, var(--border) 30%, transparent),
+      color-mix(in srgb, var(--border) 40%, transparent),
       transparent
     );
   }
@@ -626,7 +667,6 @@ const isActive = (path: string) => {
   .mobile-menu-actions {
     display: flex;
     gap: 0.5rem;
-    padding: 0 1rem;
     /* Stagger delay (after nav links) */
     opacity: 0;
     transform: translateY(6px);
@@ -705,35 +745,42 @@ const isActive = (path: string) => {
 
     const menuBtn = document.querySelector("#menu-btn");
     const mobileMenu = document.querySelector("#mobile-menu");
+    const backdrop = document.querySelector(".mobile-menu-backdrop");
 
     if (!menuBtn || !mobileMenu) return;
+    
+    const closeMenu = () => {
+      menuBtn.setAttribute("aria-expanded", "false");
+      menuBtn.setAttribute("aria-label", "Open Menu");
+      mobileMenu.classList.remove("is-open");
+      mobileMenu.setAttribute("aria-hidden", "true");
+    };
 
     menuBtn.addEventListener(
       "click",
       () => {
         const isOpen = menuBtn.getAttribute("aria-expanded") === "true";
 
-        menuBtn.setAttribute("aria-expanded", isOpen ? "false" : "true");
-        menuBtn.setAttribute("aria-label", isOpen ? "Open Menu" : "Close Menu");
-
-        mobileMenu.classList.toggle("is-open");
-        mobileMenu.setAttribute("aria-hidden", isOpen ? "true" : "false");
+        if (isOpen) {
+          closeMenu();
+        } else {
+          menuBtn.setAttribute("aria-expanded", "true");
+          menuBtn.setAttribute("aria-label", "Close Menu");
+          mobileMenu.classList.add("is-open");
+          mobileMenu.setAttribute("aria-hidden", "false");
+        }
       },
       { signal }
     );
+    
+    // Close when clicking the backdrop
+    if (backdrop) {
+      backdrop.addEventListener("click", closeMenu, { signal });
+    }
 
     // Close mobile menu on link click
     mobileMenu.querySelectorAll("a").forEach(link => {
-      link.addEventListener(
-        "click",
-        () => {
-          menuBtn.setAttribute("aria-expanded", "false");
-          menuBtn.setAttribute("aria-label", "Open Menu");
-          mobileMenu.classList.remove("is-open");
-          mobileMenu.setAttribute("aria-hidden", "true");
-        },
-        { signal }
-      );
+      link.addEventListener("click", closeMenu, { signal });
     });
   }
 
