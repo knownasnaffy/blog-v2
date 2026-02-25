@@ -88,43 +88,26 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
           desarrollo web, arquitectura de software y todo lo que hace girar el
           mundo tech.
         </p>
-        <p class="mt-2 text-sm opacity-50">
-          Escrito por
-          <LinkButton
-            class="font-medium underline decoration-dashed underline-offset-4 hover:text-accent"
-            href={SITE.profile}
-            target="_blank"
-          >
-            {SITE.author}
-          </LinkButton>
-        </p>
+        <div class="mt-8 flex flex-col sm:flex-row sm:items-center gap-4">
+          <p class="text-sm opacity-50 flex-shrink-0">
+            Escrito por
+            <LinkButton
+              class="font-medium underline decoration-dashed underline-offset-4 hover:text-accent"
+              href={SITE.profile}
+              target="_blank"
+            >
+              {SITE.author}
+            </LinkButton>
+          </p>
 
-        {
-          // only display if at least one social link is enabled
-          SOCIALS.length > 0 && (
-            <div class="mt-6">
-              <Socials />
-            </div>
-          )
-        }
-      </div>
-
-      <!-- Decorative section separator -->
-      <div
-        class="relative z-10 mt-14 flex items-center gap-3"
-        aria-hidden="true"
-      >
-        <div
-          class="h-px flex-1 bg-linear-to-r from-transparent via-border/60 to-transparent"
-        >
-        </div>
-        <span
-          class="font-cartograph text-[11px] tracking-wider text-accent/40 uppercase select-none"
-          >// posts</span
-        >
-        <div
-          class="h-px flex-1 bg-linear-to-r from-transparent via-border/60 to-transparent"
-        >
+          {
+            // only display if at least one social link is enabled
+            SOCIALS.length > 0 && (
+              <div class="sm:border-l border-border/40 sm:pl-4">
+                <Socials />
+              </div>
+            )
+          }
         </div>
       </div>
     </section>
@@ -150,19 +133,9 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 
           <ul class="grid gap-4 sm:grid-cols-2 [&>li]:my-0">
             {featuredPosts.map(data => (
-              <Card variant="h3" {...data} />
+              <Card variant="h3" featured={true} {...data} />
             ))}
           </ul>
-
-          {recentPosts.length > 0 && (
-            <div class="mt-12 flex items-center gap-3" aria-hidden="true">
-              <div class="h-px flex-1 bg-linear-to-r from-transparent via-border/60 to-transparent" />
-              <span class="font-cartograph text-[11px] tracking-wider text-accent/40 uppercase select-none">
-                // recientes
-              </span>
-              <div class="h-px flex-1 bg-linear-to-r from-transparent via-border/60 to-transparent" />
-            </div>
-          )}
         </section>
       )
     }
@@ -187,22 +160,22 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
                 index < SITE.postPerIndex && <Card variant="h3" {...data} />
             )}
           </ul>
+
+          <!-- ═══════════════════ CTA ═══════════════════ -->
+          <div class="mt-8 mb-4 flex justify-center w-full">
+            <LinkButton
+              href="/posts/"
+              class="group inline-flex items-center w-full sm:w-auto justify-center gap-2 rounded-xl border border-accent/20 bg-accent/10 px-8 py-4 text-base font-bold text-accent transition-all duration-300 hover:border-accent hover:bg-accent/20 hover:shadow-xl hover:shadow-accent/20 hover:-translate-y-0.5"
+            >
+              Explorar todos los posts
+              <IconArrowRight
+                class="inline-block transition-transform duration-300 group-hover:translate-x-1 rtl:-rotate-180"
+              />
+            </LinkButton>
+          </div>
         </section>
       )
     }
-
-    <!-- ═══════════════════ CTA ═══════════════════ -->
-    <div class="my-10 flex justify-center">
-      <LinkButton
-        href="/posts/"
-        class="group inline-flex items-center gap-2 rounded-xl border border-border/40 bg-muted/10 px-6 py-3 font-medium transition-all duration-300 hover:border-accent/50 hover:bg-accent/5 hover:shadow-lg hover:shadow-accent/5"
-      >
-        Explorar todos los posts
-        <IconArrowRight
-          class="inline-block transition-transform duration-300 group-hover:translate-x-1 rtl:-rotate-180"
-        />
-      </LinkButton>
-    </div>
   </main>
   <Footer />
 </Layout>
