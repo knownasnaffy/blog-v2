@@ -3,28 +3,71 @@ layout: ../layouts/AboutLayout.astro
 title: "About"
 ---
 
-Welcome to my digital corner. I'm a **developer** and **student** passionate about technology, video games, and building things that live on the internet.
+I build things. Then I rebuild them better.
 
-## Who am I?
+I’m a 2nd year CSE student with 3-4 years of web development experience and about a year deep into Linux tinkering. Most of what I know didn’t come from lectures. It came from breaking systems at 1 AM and fixing them at 3 AM.
 
-My name is Andrés, and for as long as I can remember, I've always been curious about how things work — from taking apart toys as a kid to dissecting other people's code at 2 AM. I'm currently studying engineering while developing projects that challenge me to learn something new every day.
+If something works, I want to know *why*.
+If something is bloated, I replace it.
+If something feels slow, I optimize it.
 
-When I'm not coding, I'm probably in some virtual world exploring maps, completing quests, or competing online. Video games aren't just my hobby; they've also taught me how to solve problems, work in teams, and above all, not to give up after attempt #847.
+I don’t like magic. I like understanding.
 
-## What I do
+Most of you can already guess, this stupid intro was improvised by an LLM.
 
-- **Web development** — I love building modern web experiences with technologies like Astro, React, TypeScript, and everything the JavaScript ecosystem has to offer.
-- **Open Source** — I believe in the power of open source. You can find my projects on [GitHub](https://github.com/0xdres/).
-- **Continuous learning** — I'm always exploring new tools, frameworks, and concepts. Technology evolves fast, and I like to keep pace.
+## My Natural Habitat
 
-## Gaming
+You’ll usually find me inside:
 
-Video games are part of my DNA. From epic RPGs to competitive shooters, I enjoy practically any genre. It's that space where creativity meets strategy and pure fun.
+- **Arch Linux** -> because if I’m using it, I want control.
+- **Neovim** -> because IDEs should bend to me, not the other way around.
+- **Hyprland** -> because aesthetics and performance can coexist.
+- Random dotfiles I’m rewriting for the 17th time.
 
-## This blog
+Custom workflows > default everything.
 
-**Devosfera** was born as a space to document my journey as a developer, share what I learn, and connect with people who share the same passions. Here you'll find posts about development, technology, and the occasional random late-night reflection.
+## What I Actually Care About
 
-If you want to connect, feel free to find me on [GitHub](https://github.com/0xdres/), [X](https://x.com/avdyen), or [LinkedIn](https://www.linkedin.com/in/avdyan/). It's always good to meet cool people from the community.
+Nothing.. Absolutely nothing.
 
-> _"Code is poetry, but with more semicolons."_ — Me, probably
+If something peaks my interest, I explore it properly.
+
+## Projects That Escaped My Laptop
+
+- **Desktop Dots**
+  My Arch + Hyprland setup. Rofi scripts, quickshell utilities, terminal tweaks, and a questionable amount of time spent on aesthetics.
+
+- **HyprHalt**
+  A Hyprland exit utility. Does what it needs to. No drama.
+
+- **Inner Ink**
+  An old diary app I still want to revive properly someday. It deserves better than its current state.
+
+There’s more coming. Always.
+
+## The Philosophy
+
+I believe in:
+
+- Reading docs instead of 14 blog posts.
+- Shipping things that make sense.
+- Building in public when possible.
+- Improving incrementally instead of waiting for perfection.
+
+Also: keyboards matter more than most people think.
+
+## Contact
+
+If you want to reach me:
+
+- **contact@barinderpreet.com**
+  Usually fast replies.
+- https://barinderpreet.com/
+  Where I think out loud.
+- LinkedIn
+  Replies vary. Could be today. Could be next week.
+
+This blog exists to document what I’m learning, building, and occasionally over-optimizing.
+
+No filler content.
+Just progress.

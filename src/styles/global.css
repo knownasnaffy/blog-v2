@@ -9,6 +9,7 @@ html[data-theme="light"] {
   --foreground: #353538;
   --accent: #1158d1;
   --muted: #35353811;
+  --muted-foreground: #353538;
   --border: #7cadff;
 }
 
@@ -17,6 +18,7 @@ html[data-theme="dark"] {
   --foreground: #f6f7f8;
   --accent: #008fec;
   --muted: #212f3f;
+  --muted-foreground: #576171;
   --border: #2264e3;
 }
 
@@ -28,6 +30,7 @@ html[data-theme="dark"] {
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
   --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
 }
 
