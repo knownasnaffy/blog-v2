@@ -25,7 +25,8 @@ const { frontmatter } = Astro.props;
         <div class="avatar-ring">
           <div class="avatar-glow"></div>
           <div class="avatar-inner">
-            <span class="avatar-emoji">👨‍💻</span>
+            <!-- <span class="avatar-emoji">👨‍💻</span> -->
+            <img src='/turbanator-emoji.png' class="avatar-emoji size-20"/>
           </div>
         </div>
         <h1 class="hero-title">
@@ -292,11 +293,6 @@ const { frontmatter } = Astro.props;
     align-items: center;
     justify-content: center;
     animation: ring-spin 6s linear infinite reverse;
-  }
-
-  .avatar-emoji {
-    font-size: 2.8rem;
-    line-height: 1;
   }
 
   .hero-title {

@@ -38,9 +38,9 @@ const { noMarginTop = false, class: className, ...attrs } = Astro.props;
           <Logo class="w-28 opacity-80 transition-all duration-300 group-hover:opacity-100 group-hover:scale-105 group-hover:drop-shadow-[0_0_8px_rgba(var(--accent-rgb),0.5)]" />
         </a>
         <p
-          class="max-w-xs text-center font-cartograph text-[11px] leading-relaxed tracking-wide text-foreground/40 sm:text-start"
+          class="max-w-xs text-center font-cartograph text-[11px] leading-relaxed tracking-wide text-muted-foreground sm:text-start"
         >
-          A space where curiosity turns into code.
+          Documenting the process.
         </p>
       </div>
 
@@ -78,12 +78,12 @@ const { noMarginTop = false, class: className, ...attrs } = Astro.props;
     <div
       class="mt-4 flex flex-col items-center justify-between gap-2 sm:flex-row"
     >
-      <p class="font-cartograph text-[11px] tracking-wide opacity-35">
+      <p class="font-cartograph text-[11px] tracking-wide text-muted-foreground">
         &copy; {currentYear}
-        {SITE.title}. All rights reserved.
+        {SITE.title}. Built on top of a template by <a href="https://github.com/0xdres" class="text-accent font-bold">Andrés Ujpán</a>
       </p>
-      <p class="font-cartograph text-[11px] tracking-wide opacity-30">
-        Made with <span class="text-accent">&#9829;</span> and lots of coffee
+      <p class="font-cartograph text-[11px] tracking-wide text-muted-foreground">
+        Made with <a href="https://astro.build/" class="font-bold text-accent">Astro</a> and <span class="text-accent">&#9829;</span>
       </p>
     </div>
   </div>
