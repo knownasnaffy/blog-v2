@@ -1,10 +1,10 @@
 export const SITE = {
-  website: "https://devosfera.vercel.app/",
-  author: "Andrés Ujpán",
-  profile: "https://github.com/0xdres",
-  desc: "Un blog para compartir mis pensamientos y proyectos mientras aprendo cosas nuevas.",
-  title: "Devosfera",
-  ogImage: "devosfera-og.webp", // ubicado en la carpeta public
+  website: "https://barinderpreet.com/",
+  author: "Barinderpreet Singh",
+  profile: "https://github.com/knownasnaffy",
+  desc: "A blog to share my thoughts and projects while I learn new things.",
+  title: "Barinderpreet Singh",
+  ogImage: "devosfera-og.webp", // located in the public folder
   lightAndDarkMode: true,
   postPerIndex: 6,
   postPerPage: 8,
@@ -14,17 +14,17 @@ export const SITE = {
   showBackButton: true, // show back button in post detail
   editPost: {
     enabled: true,
-    text: "Editar este post",
+    text: "Edit this post",
     url: "https://github.com/0xdres/astro-devosfera/edit/main/",
   },
   dynamicOgImage: true,
   dir: "ltr", // "rtl" | "auto"
-  lang: "es", // html lang code. Set this empty and default will be "en"
-  timezone: "America/Guatemala", // Default global timezone (IANA format) https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  lang: "en", // html lang code. Set this empty and default will be "en"
+  timezone: "America/Guatemala", // Default global timezone (IANA format)
   introAudio: {
-    enabled: true, // mostrar/ocultar el reproductor en el hero
-    src: "/audio/intro-web.mp3", // ruta al archivo (relativa a /public)
-    label: "INTRO.MP3", // etiqueta display en el reproductor
-    duration: 30, // duración en segundos (para la barra de progreso fija)
+    enabled: false, // show/hide the player in the hero section
+    src: "/audio/intro-web.mp3", // path to the file (relative to /public)
+    label: "INTRO.MP3", // display label in the player
+    duration: 30, // duration in seconds (for the fixed progress bar)
   },
 } as const;
