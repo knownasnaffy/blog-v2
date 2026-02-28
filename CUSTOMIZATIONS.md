@@ -356,7 +356,7 @@ Rewritten from default AstroPaper template to personalized content as Andrés:
 
 Complete visual overhaul replacing the simple list layout with a timeline-based design:
 
-- **Hero section:** Same aurora system as Tags/About — 3 floating `radial-gradient` orbs with drift animations + mouse-following aurora orb (350px, `blur(50px)`, tracks via `--mx`/`--my`). Gradient glow title, Spanish description, stat badges.
+- **Hero section:** Same aurora system as Tags/About — 3 floating `radial-gradient` orbs with drift animations + mouse-following aurora orb (350px, `blur(50px)`, tracks via `--mx`/`--my`). Gradient glow title, English description, stat badges.
 - **Timeline layout:** Vertical timeline with a gradient accent line (`linear-gradient` from accent→border→fade). Posts are visually connected via:
   - **Timeline dots** (`.post-dot`): 10px circles on the timeline line, hollow by default, fill with accent + glow `box-shadow` on hover.
   - **Year markers:** Pill-shaped badges with gradient text, positioned at the timeline origin. Mouse-reactive aurora glow inside.
@@ -367,7 +367,7 @@ Complete visual overhaul replacing the simple list layout with a timeline-based 
   - **Day number:** Large bold accent number (with opacity + `text-shadow` glow transition on hover).
   - **Title + description:** Title glows with accent `text-shadow` on hover, description clamped to 2 lines.
   - Hover elevation (`translateY(-2px)`) with multi-layer box-shadow + inset highlight.
-- Months translated to Spanish (Enero, Febrero, etc.).
+- Months in English (January, February, etc.).
 
 ## 20. Search Page — Full Redesign with Interactive Aurora
 
@@ -375,7 +375,7 @@ Complete visual overhaul replacing the simple list layout with a timeline-based 
 
 Complete visual overhaul of the search page, replacing the basic `Main` layout with a custom aurora-enhanced design:
 
-- **Hero section:** 3 floating aurora orbs with drift animations + mouse-following aurora orb (350px, `blur(50px)`). Gradient glow title "Buscar", Spanish description.
+- **Hero section:** 3 floating aurora orbs with drift animations + mouse-following aurora orb (350px, `blur(50px)`). Gradient glow title "Search", English description.
 - **Search container card:** Rounded card (`.search-container`) wrapping the Pagefind UI with:
   - **Mouse-reactive aurora** (`.search-aurora`): 300px radial glow following cursor, `blur(40px)`.
   - **Mouse-reactive border glow** (`.search-border-glow`): 150px concentrated glow, `mix-blend-mode: screen`.
