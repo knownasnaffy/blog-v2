@@ -3,11 +3,15 @@ title: "Stop Playing Git Repository Hide-and-Seek: A 5-Minute Script That'll Sav
 description: "Tired of losing track of which projects have uncommitted changes? This simple shell script turns git chaos into organized bliss by scanning all your repositories and showing exactly what needs attention."
 pubDatetime: 2025-09-24T10:00:00Z
 tags:
-  - ai
+  - git
+  - shell
+  - bash
+  - automation
+  - developer-tools
+  - workflow
   - productivity
-  - reflection
-  - dev
 draft: false
+featured: false
 ---
 
 Picture this: You're deep in code, switching between your client project, that cool side project, your job work, and maybe your college projects. You make changes here, commit there, push somewhere else... and then panic hits.
