@@ -24,7 +24,7 @@ type Props = {
 
 const { slug, limit = 6, showLink = true, cols = 3 } = Astro.props;
 
-// ── 1. Buscar la entrada de la colección por slug ────────────────────────────
+// ── 1. Find the collection entry by slug ────────────────────────────
 // Se obtienen TODAS (incluyendo drafts) para que el embed funcione en preview;
 // el filtro de draft lo aplica el autor eligiendo no publicar el post que lo contenga.
 const allGalleries = await getCollection("galleries");
