@@ -18,12 +18,12 @@ const allImages = import.meta.glob<{ default: ImageMetadata }>(
   { eager: true }
 );
 
-// Helper: extrae el slug del id de la colección (p.ej. "mi-viaje/index.md" → "mi-viaje")
+// Helper: extracts the slug from the collection id (e.g. "my-trip/index.md" → "my-trip")
 function getSlug(id: string) {
   return id.replace(/\/index\.(md|mdx)$/, "").replace(/\.(md|mdx)$/, "");
 }
 
-// Obtener imágenes de una galería específica
+// Get images from a specific gallery
 function getGalleryImages(slug: string): ImageMetadata[] {
   return Object.entries(allImages)
     .filter(
@@ -89,7 +89,7 @@ const galleries = rawGalleries
     {
       galleries.length === 0 ? (
         <p class="mt-12 text-center text-foreground/50 italic">
-          Todavía no hay galerías publicadas.
+          No galleries published yet.
         </p>
       ) : (
         <ul
