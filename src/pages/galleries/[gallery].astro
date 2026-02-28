@@ -38,10 +38,10 @@ type GalleryImage = { src: ImageMetadata; alt: string; filename: string };
 function filenameToAlt(filename: string): string {
   return (
     filename
-      .replace(/\.[^.]+$/, "") // quitar extensión
-      .replace(/^\d+[-_]?/, "") // quitar número inicial
-      .replace(/[-_]/g, " ") // guiones/underscores → espacios
-      .replace(/\b\w/g, c => c.toUpperCase()) // capitalizar
+      .replace(/\.[^.]+$/, "") // remove extension
+      .replace(/^\d+[-_]?/, "") // remove leading number
+      .replace(/[-_]/g, " ") // hyphens/underscores → spaces
+      .replace(/\b\w/g, c => c.toUpperCase()) // capitalize
       .trim() || title
   );
 }
