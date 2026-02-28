@@ -147,17 +147,17 @@ const gridClass = {
           ))}
         </ul>
       ) : (
-        <p class="ge-empty">Esta galería todavía no tiene imágenes.</p>
+        <p class="ge-empty">This gallery doesn't have images yet.</p>
       )}
 
-      {/* Pie: descripción + enlace a la galería completa */}
+      {/* Footer: description + link to full gallery */}
       <figcaption class="ge-footer">
         {entry.data.description && (
           <span class="ge-desc">{entry.data.description}</span>
         )}
         {showLink && (
           <a href={`/galleries/${slug}`} class="ge-link">
-            Ver galería completa
+            View full gallery
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="14"
