@@ -4,6 +4,7 @@ import { SITE } from "@/config";
 
 export const BLOG_PATH = "src/data/blog";
 export const GALLERY_PATH = "src/data/galleries";
+export const JOURNEY_PATH = "src/data/journey";
 
 const blog = defineCollection({
   loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: `./${BLOG_PATH}` }),
@@ -37,4 +38,16 @@ const galleries = defineCollection({
     }),
 });
 
-export const collections = { blog, galleries };
+const journey = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: `./${JOURNEY_PATH}` }),
+  schema: z.object({
+    title: z.string(),
+    pubDatetime: z.date(),
+    description: z.string(),
+    skills: z.array(z.string()).default([]),
+    type: z.enum(["milestone", "transition", "learning"]),
+    timezone: z.string().optional(),
+  }),
+});
+
+export const collections = { blog, galleries, journey };
