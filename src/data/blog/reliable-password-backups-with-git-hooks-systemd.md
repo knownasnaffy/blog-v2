@@ -92,4 +92,3 @@ ExecStart=%h/.local/bin/pass-push.sh
 - Hourly retries ensure backups happen even during connectivity issues.
 - Self-disabling timers avoid wasting resources.
 - Hope this was useful to you.
-

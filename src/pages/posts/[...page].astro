@@ -72,9 +72,9 @@ const totalPosts = page.total;
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="9" y1="15" x2="15" y2="15"></line>
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="9" y1="15" x2="15" y2="15" />
               </svg>
             </div>
             <h3 class="empty-title">No posts yet</h3>
@@ -84,7 +84,9 @@ const totalPosts = page.total;
           </div>
         ) : (
           <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {page.data.map((data: any) => <Card {...data} />)}
+            {page.data.map((data: any) => (
+              <Card {...data} />
+            ))}
           </ul>
         )
       }
@@ -108,19 +110,29 @@ const totalPosts = page.total;
 
     // Hero mouse glow
     const hero = document.querySelector("[data-posts-hero]") as HTMLElement;
-    const heroMouse = document.querySelector("[data-posts-mouse]") as HTMLElement;
+    const heroMouse = document.querySelector(
+      "[data-posts-mouse]"
+    ) as HTMLElement;
     if (hero && heroMouse) {
-      hero.addEventListener("mousemove", e => {
-        requestAnimationFrame(() => {
-          const rect = hero.getBoundingClientRect();
-          heroMouse.style.setProperty("--mx", `${e.clientX - rect.left}px`);
-          heroMouse.style.setProperty("--my", `${e.clientY - rect.top}px`);
-          heroMouse.style.opacity = "1";
-        });
-      }, { signal });
-      hero.addEventListener("mouseleave", () => {
-        heroMouse.style.opacity = "0";
-      }, { signal });
+      hero.addEventListener(
+        "mousemove",
+        e => {
+          requestAnimationFrame(() => {
+            const rect = hero.getBoundingClientRect();
+            heroMouse.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+            heroMouse.style.setProperty("--my", `${e.clientY - rect.top}px`);
+            heroMouse.style.opacity = "1";
+          });
+        },
+        { signal }
+      );
+      hero.addEventListener(
+        "mouseleave",
+        () => {
+          heroMouse.style.opacity = "0";
+        },
+        { signal }
+      );
     }
 
     // Initialize Pagefind local search
@@ -160,15 +172,21 @@ const totalPosts = page.total;
           zero_results: "No results for [SEARCH_TERM]",
           many_results: "[COUNT] results for [SEARCH_TERM]",
           one_result: "[COUNT] result for [SEARCH_TERM]",
-          alt_search: "No results for [SEARCH_TERM]. Showing results for [DIFFERENT_TERM] instead",
-          search_suggestion: "No results for [SEARCH_TERM]. Try one of the following searches:",
+          alt_search:
+            "No results for [SEARCH_TERM]. Showing results for [DIFFERENT_TERM] instead",
+          search_suggestion:
+            "No results for [SEARCH_TERM]. Try one of the following searches:",
           searching: "Searching...",
         },
       });
 
       // Toggle default posts grid visibility when typing
-      const input = container.querySelector(".pagefind-ui__search-input") as HTMLInputElement;
-      const defaultContainer = document.querySelector("[data-default-posts-container]") as HTMLElement;
+      const input = container.querySelector(
+        ".pagefind-ui__search-input"
+      ) as HTMLInputElement;
+      const defaultContainer = document.querySelector(
+        "[data-default-posts-container]"
+      ) as HTMLElement;
 
       if (input && defaultContainer) {
         const toggleVisibility = () => {
@@ -185,9 +203,13 @@ const totalPosts = page.total;
         // Handle clear button
         const clearBtn = container.querySelector(".pagefind-ui__search-clear");
         if (clearBtn) {
-          clearBtn.addEventListener("click", () => {
-            requestAnimationFrame(() => toggleVisibility());
-          }, { signal });
+          clearBtn.addEventListener(
+            "click",
+            () => {
+              requestAnimationFrame(() => toggleVisibility());
+            },
+            { signal }
+          );
         }
       }
 
@@ -199,14 +221,16 @@ const totalPosts = page.total;
           if (input) {
             input.focus();
             // Scroll to the search box if it's not visible
-            input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            input.scrollIntoView({ behavior: "smooth", block: "center" });
           }
         }
       };
 
       // Use capture mode to intercept before the global modal listener
-      document.addEventListener("keydown", handleCmdK, { signal, capture: true });
-
+      document.addEventListener("keydown", handleCmdK, {
+        signal,
+        capture: true,
+      });
     });
   }
 
@@ -392,8 +416,12 @@ const totalPosts = page.total;
   }
 
   @keyframes empty-float {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-8px); }
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-8px);
+    }
   }
 
   .empty-title {

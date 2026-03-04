@@ -63,7 +63,10 @@ const hasCoverInFolder = coverImage
   : false;
 ---
 
-<Layout title={`${title} | Galleries | ${SITE.title}`} description={description}>
+<Layout
+  title={`${title} | Galleries | ${SITE.title}`}
+  description={description}
+>
   <Header />
   <Breadcrumb />
   <main id="main-content" class="app-layout pb-16">
@@ -161,7 +164,7 @@ const hasCoverInFolder = coverImage
   <button
     class="lightbox-close"
     id="lightbox-close"
-    aria-label="Cerrar"
+    aria-label="Close"
     type="button"
   >
     <svg

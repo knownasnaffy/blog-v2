@@ -16,7 +16,7 @@ featured: false
 
 Picture this: You're deep in code, switching between your client project, that cool side project, your job work, and maybe your college projects. You make changes here, commit there, push somewhere else... and then panic hits.
 
-*"Wait, did I commit those database changes? Did I push the API fixes? Which repo was I working on yesterday?"*
+_"Wait, did I commit those database changes? Did I push the API fixes? Which repo was I working on yesterday?"_
 
 Sound familiar? Welcome to the **Git Repository Juggling Olympics** – where everyone's a participant, but nobody signed up.
 

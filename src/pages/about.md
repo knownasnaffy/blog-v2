@@ -7,7 +7,7 @@ I build things. Then I rebuild them better.
 
 I’m a 2nd year CSE student with 3-4 years of web development experience and about a year deep into Linux tinkering. Most of what I know didn’t come from lectures. It came from breaking systems at 1 AM and fixing them at 3 AM.
 
-If something works, I want to know *why*.
+If something works, I want to know _why_.
 If something is bloated, I replace it.
 If something feels slow, I optimize it.
 

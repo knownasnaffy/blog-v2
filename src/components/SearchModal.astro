@@ -55,12 +55,12 @@ import "@pagefind/default-ui/css/ui.css";
         <kbd class="kbd-key">K</kbd>
         <span class="shortcuts-sep">·</span>
         <kbd class="kbd-key">esc</kbd>
-        <span class="shortcuts-label">cerrar</span>
+        <span class="shortcuts-label">close</span>
       </div>
       <button
         class="search-modal-close"
         data-search-close
-        aria-label="Cerrar búsqueda"
+        aria-label="Close modal"
       >
         <svg
           class="size-4"
@@ -79,7 +79,12 @@ import "@pagefind/default-ui/css/ui.css";
 
     <!-- Search body -->
     <div class="search-modal-body">
-      <div id="modal-pagefind-search" class="premium-search" style="--pagefind-ui-scale: 0.9;"></div>
+      <div
+        id="modal-pagefind-search"
+        class="premium-search"
+        style="--pagefind-ui-scale: 0.9;"
+      >
+      </div>
       <!-- Empty state illustration -->
       <div class="search-empty-state" data-search-empty>
         <div class="empty-icon">
@@ -232,14 +237,14 @@ import "@pagefind/default-ui/css/ui.css";
           <div class="bg-muted/75 rounded-lg p-4 text-sm mb-4 border border-border">
             <p><strong>Dev Mode:</strong> Build the project first to enable search. Run <code class="bg-background px-2 py-1 rounded">bun run build</code>.</p>
           </div>
-        `
+        `;
       }
 
       const onIdle =
         window.requestIdleCallback || ((cb: () => void) => setTimeout(cb, 1));
       onIdle(async () => {
         if (signal.aborted) return;
-        
+
         // Ensure Pagefind UI does not re-initialize on the same element
         if (container.querySelector(".pagefind-ui")) return;
 
@@ -262,8 +267,10 @@ import "@pagefind/default-ui/css/ui.css";
             zero_results: "No results for [SEARCH_TERM]",
             many_results: "[COUNT] results for [SEARCH_TERM]",
             one_result: "[COUNT] result for [SEARCH_TERM]",
-            alt_search: "No results for [SEARCH_TERM]. Showing results for [DIFFERENT_TERM] instead",
-            search_suggestion: "No results for [SEARCH_TERM]. Try one of the following searches:",
+            alt_search:
+              "No results for [SEARCH_TERM]. Showing results for [DIFFERENT_TERM] instead",
+            search_suggestion:
+              "No results for [SEARCH_TERM]. Try one of the following searches:",
             searching: "Searching...",
           },
         });

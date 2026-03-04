@@ -35,7 +35,9 @@ const { noMarginTop = false, class: className, ...attrs } = Astro.props;
           href="/"
           class="group relative flex items-center gap-2 text-lg font-bold tracking-tight"
         >
-          <Logo class="w-28 opacity-80 transition-all duration-300 group-hover:opacity-100 group-hover:scale-105 group-hover:drop-shadow-[0_0_8px_rgba(var(--accent-rgb),0.5)]" />
+          <Logo
+            class="w-28 opacity-80 transition-all duration-300 group-hover:scale-105 group-hover:opacity-100 group-hover:drop-shadow-[0_0_8px_rgba(var(--accent-rgb),0.5)]"
+          />
         </a>
         <p
           class="max-w-xs text-center font-cartograph text-[11px] leading-relaxed tracking-wide text-muted-foreground sm:text-start"
@@ -55,7 +57,7 @@ const { noMarginTop = false, class: className, ...attrs } = Astro.props;
             SOCIALS.map(social => (
               <LinkButton
                 href={social.href}
-                class="footer-social-btn group relative flex size-9 items-center justify-center rounded-xl border border-border/20 bg-muted/20 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:bg-accent/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
+                class="footer-social-btn group relative flex size-9 items-center justify-center rounded-xl border border-border/20 bg-muted/20 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:bg-accent/10 focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:outline-none"
                 title={social.linkTitle}
               >
                 <social.icon class="size-4.5 fill-transparent stroke-foreground/60 stroke-[1.5px] transition-all duration-300 group-hover:stroke-accent" />
@@ -78,12 +80,21 @@ const { noMarginTop = false, class: className, ...attrs } = Astro.props;
     <div
       class="mt-4 flex flex-col items-center justify-between gap-2 sm:flex-row"
     >
-      <p class="font-cartograph text-[11px] tracking-wide text-muted-foreground">
+      <p
+        class="font-cartograph text-[11px] tracking-wide text-muted-foreground"
+      >
         &copy; {currentYear}
-        {SITE.title}. Built on top of a template by <a href="https://github.com/0xdres" class="text-accent font-bold">Andrés Ujpán</a>
+        {SITE.title}. Built on top of a template by <a
+          href="https://github.com/0xdres"
+          class="font-bold text-accent">Andrés Ujpán</a
+        >
       </p>
-      <p class="font-cartograph text-[11px] tracking-wide text-muted-foreground">
-        Made with <a href="https://astro.build/" class="font-bold text-accent">Astro</a> and <span class="text-accent">&#9829;</span>
+      <p
+        class="font-cartograph text-[11px] tracking-wide text-muted-foreground"
+      >
+        Made with <a href="https://astro.build/" class="font-bold text-accent"
+          >Astro</a
+        > and <span class="text-accent">&#9829;</span>
       </p>
     </div>
   </div>
@@ -107,6 +118,7 @@ const { noMarginTop = false, class: className, ...attrs } = Astro.props;
   }
 
   .footer-social-btn:hover {
-    box-shadow: 0 8px 20px -4px color-mix(in srgb, var(--accent) 30%, transparent);
+    box-shadow: 0 8px 20px -4px
+      color-mix(in srgb, var(--accent) 30%, transparent);
   }
 </style>

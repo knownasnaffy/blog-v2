@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { slugifyStr } from "@/utils/slugify";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
@@ -12,6 +13,8 @@ import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import { SITE } from "@/config";
 import { SOCIALS } from "@/constants";
 import IntroAudio from "@/components/IntroAudio.astro";
+import SkillCard from "@/components/SkillCard.astro";
+import { skills } from "@/data/home/skills";
 
 const posts = await getCollection("blog");
 
@@ -88,7 +91,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
           Web development, Linux setups, tooling, and the occasional over-optimization.
         </p>
         <div class="mt-8 flex flex-col sm:flex-row sm:items-center gap-4">
-          <p class="text-sm opacity-50 flex-shrink-0">
+          <p class="text-sm opacity-50 shrink-0">
             Written by
             <LinkButton
               class="font-medium underline decoration-dashed underline-offset-4 hover:text-accent"
@@ -109,6 +112,22 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
           }
         </div>
       </div>
+    </section>
+
+    <!-- ═══════════════════ SKILLS ═══════════════════ -->
+    <section id="skills" class="pb-6">
+      <div class="mb-6 flex items-center gap-3">
+        <h2 class="flex items-center gap-2 text-sm font-bold tracking-widest uppercase">
+          Skills and Technologies
+        </h2>
+        <div class="h-px flex-1 bg-border/20" />
+      </div>
+
+      <ul class="grid gap-4 sm:grid-cols-3 [&>li]:my-0">
+        {skills.map(skill => (
+          <SkillCard {...skill} />
+        ))}
+      </ul>
     </section>
 
     <!-- ═══════════════════ FEATURED ═══════════════════ -->
@@ -160,7 +179,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
             )}
           </ul>
 
-          <!-- ═══════════════════ CTA ═══════════════════ -->
+          {/* ═══════════════════ CTA ═══════════════════ */}
           <div class="mt-8 mb-4 flex justify-center w-full">
             <LinkButton
               href="/posts/"
