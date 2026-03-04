@@ -3,12 +3,12 @@ title: "Never Ignore a Good Project README"
 description: "My tantrum and advice after almost loosing my cool due to a piece of software"
 pubDatetime: 2026-01-16T10:00:00Z
 tags:
-  - shell
-  - rofi
-  - bash
-  - systemd
-  - scripting
-  - health
+  - readme
+  - documentation
+  - debugging
+  - configuration
+  - linux
+  - developer-mistakes
 draft: false
 featured: false
 ---

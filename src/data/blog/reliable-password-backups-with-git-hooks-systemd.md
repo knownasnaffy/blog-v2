@@ -3,12 +3,11 @@ title: "Reliable Password Backups with Git Hooks and Systemd Timers"
 description: "A simple and effective way to keep your password store backed up immediately after each change, with automatic retries handled by systemd timers if the push fails."
 pubDatetime: 2025-11-25T10:00:00Z
 tags:
-  - shell
-  - rofi
-  - bash
+  - pass
+  - git-hooks
   - systemd
-  - scripting
-  - health
+  - automation
+  - backups
 draft: false
 featured: false
 ---
