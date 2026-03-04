@@ -105,13 +105,13 @@ import "@pagefind/default-ui/css/ui.css";
     <!-- Footer -->
     <div class="search-modal-footer">
       <div class="footer-hint">
-        <span class="footer-icon">↵</span> abrir
+        <span class="footer-icon">↵</span> Select
       </div>
       <div class="footer-hint">
-        <span class="footer-icon">↑↓</span> navegar
+        <span class="footer-icon">↑↓</span> Navigate
       </div>
       <div class="footer-powered">
-        powered by <strong>pagefind</strong>
+        powered by <a href="https://pagefind.app/"><strong>pagefind</strong></a>
       </div>
     </div>
   </div>
@@ -229,10 +229,10 @@ import "@pagefind/default-ui/css/ui.css";
 
       if (import.meta.env.DEV) {
         container.innerHTML = `
-          <div class="bg-muted/75 rounded-lg p-4 space-y-3 border border-accent/10">
-            <p class="text-sm"><strong>⚠ DEV mode</strong> — Build the project first to enable search.</p>
-            <code class="block bg-black text-white text-xs px-3 py-2 rounded-lg font-mono">pnpm run build</code>
-          </div>`;
+          <div class="bg-muted/75 rounded-lg p-4 text-sm mb-4 border border-border">
+            <p><strong>Dev Mode:</strong> Build the project first to enable search. Run <code class="bg-background px-2 py-1 rounded">bun run build</code>.</p>
+          </div>
+        `
       }
 
       const onIdle =
