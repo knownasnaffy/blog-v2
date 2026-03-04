@@ -154,8 +154,12 @@ const yearGroups = Object.entries(
       toggle.addEventListener(
         "click",
         () => {
+          const card = toggle.closest(".journey-card");
           const isExpanded = toggle.getAttribute("aria-expanded") === "true";
           toggle.setAttribute("aria-expanded", String(!isExpanded));
+          if (card) {
+            card.setAttribute("data-expanded", String(!isExpanded));
+          }
         },
         { signal }
       );
@@ -405,7 +409,7 @@ const yearGroups = Object.entries(
   .entries-list {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.75rem;
   }
 
   .journey-card {
@@ -418,7 +422,7 @@ const yearGroups = Object.entries(
     );
     border: 1px solid
       color-mix(in srgb, var(--color-foreground) 6%, transparent);
-    overflow: hidden;
+    overflow: visible;
     transition:
       border-color 0.3s ease,
       box-shadow 0.3s ease;
@@ -508,7 +512,7 @@ const yearGroups = Object.entries(
     display: flex;
     align-items: flex-start;
     gap: 1rem;
-    padding: 1rem 1.25rem;
+    padding: 1.25rem;
     background: none;
     border: none;
     cursor: pointer;
@@ -518,14 +522,6 @@ const yearGroups = Object.entries(
     z-index: 1;
   }
 
-  .journey-header-content {
-    flex: 1;
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    min-width: 0;
-  }
-
   .journey-date {
     flex-shrink: 0;
     font-size: 0.75rem;
@@ -533,14 +529,14 @@ const yearGroups = Object.entries(
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--color-accent);
-    opacity: 0.5;
+    opacity: 0.6;
     transition: opacity 0.3s ease;
     min-width: 3.5rem;
     padding-top: 0.15rem;
   }
 
   .journey-card:hover .journey-date {
-    opacity: 0.9;
+    opacity: 1;
   }
 
   .journey-info {
@@ -556,7 +552,8 @@ const yearGroups = Object.entries(
   }
 
   .journey-title {
-    font-size: 1rem;
+    display: block;
+    font-size: 1.125rem;
     font-weight: 600;
     line-height: 1.4;
     transition: color 0.2s ease;
@@ -594,23 +591,23 @@ const yearGroups = Object.entries(
   }
 
   .journey-desc {
-    margin-top: 0.25rem;
-    font-size: 0.8rem;
-    line-height: 1.5;
-    opacity: 0.55;
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    opacity: 0.7;
   }
 
   .journey-skills {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.35rem;
-    margin-top: 0.5rem;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
   }
 
   .skill-tag {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     font-weight: 500;
-    padding: 0.15rem 0.5rem;
+    padding: 0.25rem 0.625rem;
     border-radius: 999px;
     color: var(--color-foreground);
     background: color-mix(in srgb, var(--color-foreground) 8%, transparent);
@@ -637,11 +634,10 @@ const yearGroups = Object.entries(
   .journey-content {
     display: grid;
     grid-template-rows: 0fr;
-    overflow: hidden;
     transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .journey-header[aria-expanded="true"] + .journey-content {
+  .journey-card[data-expanded="true"] .journey-content {
     grid-template-rows: 1fr;
   }
 
@@ -650,15 +646,9 @@ const yearGroups = Object.entries(
   }
 
   .journey-body {
-    padding: 0 1.25rem 1.25rem 5.75rem;
+    padding: 0 1.25rem 1.25rem 1.25rem;
     position: relative;
     z-index: 1;
-  }
-
-  @media (max-width: 640px) {
-    .journey-body {
-      padding-left: 1.25rem;
-    }
   }
 
   /* Use site's typography styles */

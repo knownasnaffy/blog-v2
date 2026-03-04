@@ -21,26 +21,24 @@ const dateStr = date.toLocaleDateString("en-US", {
   <div class="journey-dot"></div>
 
   <button class="journey-header" data-journey-toggle aria-expanded="false">
-    <div class="journey-header-content">
-      <div class="journey-date">{dateStr}</div>
-      <div class="journey-info">
-        <div class="journey-title-row">
-          <span class="journey-title">{entry.data.title}</span>
-          <span class={`journey-type type-${entry.data.type}`}>
-            {entry.data.type}
-          </span>
-        </div>
-        <p class="journey-desc">{entry.data.description}</p>
-        {
-          entry.data.skills.length > 0 && (
-            <div class="journey-skills">
-              {entry.data.skills.map(skill => (
-                <span class="skill-tag">{skill}</span>
-              ))}
-            </div>
-          )
-        }
+    <div class="journey-date">{dateStr}</div>
+    <div class="journey-info">
+      <div class="journey-title-row">
+        <span class="journey-title">{entry.data.title}</span>
+        <span class={`journey-type type-${entry.data.type}`}>
+          {entry.data.type}
+        </span>
       </div>
+      <p class="journey-desc">{entry.data.description}</p>
+      {
+        entry.data.skills.length > 0 && (
+          <div class="journey-skills">
+            {entry.data.skills.map(skill => (
+              <span class="skill-tag">{skill}</span>
+            ))}
+          </div>
+        )
+      }
     </div>
     <svg
       class="chevron"
