@@ -12,35 +12,32 @@ export const skills: Skill[] = [
     category: "Web Development",
     experience: 4,
     highlights: [
-      "Component architecture, state management",
-      "Responsive UI, accessibility, UX patterns",
+      "Complex UI state, forms, async data",
+      "Responsive layouts, accessibility",
     ],
   },
   {
-    name: "TypeScript Development",
+    name: "Type-Safe Programming",
     category: "Programming",
     experience: 3,
     highlights: [
-      "Type-safe application design",
-      "Generics, interfaces, complex types",
+      "Static typing, generics, interfaces",
+      "Designing safe, predictable APIs",
     ],
   },
   {
     name: "Backend & API Development",
     category: "Backend",
     experience: 3,
-    highlights: [
-      "REST APIs, authentication flows",
-      "Database integration, validation",
-    ],
+    highlights: ["REST APIs, auth flows", "Database modeling, validation"],
   },
   {
-    name: "Desktop Application Development",
-    category: "Applications",
-    experience: 2,
+    name: "Application Architecture",
+    category: "Engineering",
+    experience: 3,
     highlights: [
-      "Cross-platform desktop apps",
-      "Native integrations, local data handling",
+      "Structuring maintainable codebases",
+      "Performance-aware design",
     ],
   },
   {
@@ -48,8 +45,8 @@ export const skills: Skill[] = [
     category: "Systems",
     experience: 2,
     highlights: [
-      "CLI utilities and system integrations",
-      "Process management, IPC workflows",
+      "CLI utilities and desktop integrations",
+      "Process control, IPC workflows",
     ],
   },
   {
@@ -57,35 +54,8 @@ export const skills: Skill[] = [
     category: "Systems",
     experience: 2,
     highlights: [
-      "Shell scripting, workflow automation",
+      "Shell scripting and workflow automation",
       "Developer productivity tooling",
-    ],
-  },
-  {
-    name: "Linux Systems",
-    category: "Systems",
-    experience: 1,
-    highlights: [
-      "Wayland ecosystem tooling",
-      "Environment configuration and debugging",
-    ],
-  },
-  {
-    name: "Developer Experience",
-    category: "Engineering",
-    experience: 3,
-    highlights: [
-      "Tooling, editor workflows",
-      "Automation for faster development",
-    ],
-  },
-  {
-    name: "Application Architecture",
-    category: "Engineering",
-    experience: 3,
-    highlights: [
-      "Structuring maintainable projects",
-      "Balancing performance and developer ergonomics",
     ],
   },
 ];
