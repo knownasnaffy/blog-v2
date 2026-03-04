@@ -91,10 +91,12 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
           Web development, Linux setups, tooling, and the occasional over-optimization.
         </p>
         <div class="mt-8 flex flex-col sm:flex-row sm:items-center gap-4">
-          <p class="text-sm opacity-50 shrink-0">
-            Written by
+          <p class="text-sm shrink-0">
+            <span class="opacity-50">
+              Written by
+            </span>
             <LinkButton
-              class="font-medium underline decoration-dashed underline-offset-4 hover:text-accent"
+              class="font-medium underline decoration-dashed underline-offset-4 hover:text-accent opacity-50 hover:opacity-100"
               href={SITE.profile}
               target="_blank"
             >
