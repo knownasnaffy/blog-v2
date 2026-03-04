@@ -1,31 +1,30 @@
 ---
 import { getCollection } from "astro:content";
-import { render } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
+import JourneyCard from "@/components/JourneyCard.astro";
 import getPostsByGroupCondition from "@/utils/getPostsByGroupCondition";
 import { SITE } from "@/config";
 
 const journeyEntries = await getCollection("journey");
-
 const totalEntries = journeyEntries.length;
 
+// Sort entries by date
+const sortedEntries = journeyEntries.sort(
+  (a, b) =>
+    new Date(b.data.pubDatetime).getTime() -
+    new Date(a.data.pubDatetime).getTime()
+);
+
+// Group by year
 const yearGroups = Object.entries(
-  getPostsByGroupCondition(
-    journeyEntries,
+  getPostsByGroupCondition<"journey">(
+    sortedEntries,
     entry => entry.data.pubDatetime.getFullYear()
   )
 ).sort(([a], [b]) => Number(b) - Number(a));
-
-// Pre-render all markdown content
-const entriesWithContent = await Promise.all(
-  journeyEntries.map(async entry => {
-    const { Content } = await render(entry);
-    return { ...entry, Content };
-  })
-);
 ---
 
 <Layout title={`Journey | ${SITE.title}`}>
@@ -67,81 +66,9 @@ const entriesWithContent = await Promise.all(
             </div>
 
             <div class="entries-list">
-              {yearEntries
-                .sort(
-                  (a, b) =>
-                    new Date(b.data.pubDatetime).getTime() -
-                    new Date(a.data.pubDatetime).getTime()
-                )
-                .map(entry => {
-                  const entryWithContent = entriesWithContent.find(
-                    e => e.id === entry.id
-                  );
-                  const Content = entryWithContent?.Content;
-                  const date = new Date(entry.data.pubDatetime);
-                  const dateStr = date.toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                  });
-
-                  return (
-                    <div class="journey-card" data-journey-card>
-                      <div class="card-aurora" data-card-aurora />
-                      <div class="card-border-glow" data-card-border />
-                      <div class="journey-dot" />
-
-                      <button
-                        class="journey-header"
-                        data-journey-toggle
-                        aria-expanded="false"
-                      >
-                        <div class="journey-header-content">
-                          <div class="journey-date">{dateStr}</div>
-                          <div class="journey-info">
-                            <div class="journey-title-row">
-                              <span class="journey-title">
-                                {entry.data.title}
-                              </span>
-                              <span class={`journey-type type-${entry.data.type}`}>
-                                {entry.data.type}
-                              </span>
-                            </div>
-                            <p class="journey-desc">{entry.data.description}</p>
-                            {entry.data.skills.length > 0 && (
-                              <div class="journey-skills">
-                                {entry.data.skills.map(skill => (
-                                  <span class="skill-tag">{skill}</span>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                        <svg
-                          class="chevron"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M5 7.5L10 12.5L15 7.5"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                      </button>
-
-                      <div class="journey-content" data-journey-content>
-                        <div class="journey-body prose">
-                          {Content && <Content />}
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
+              {
+                yearEntries.map(entry => <JourneyCard entry={entry} />)
+              }
             </div>
           </div>
         ))
