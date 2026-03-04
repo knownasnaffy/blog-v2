@@ -154,19 +154,8 @@ const yearGroups = Object.entries(
       toggle.addEventListener(
         "click",
         () => {
-          const content = toggle
-            .closest(".journey-card")
-            ?.querySelector("[data-journey-content]") as HTMLElement;
           const isExpanded = toggle.getAttribute("aria-expanded") === "true";
-
           toggle.setAttribute("aria-expanded", String(!isExpanded));
-          if (content) {
-            if (!isExpanded) {
-              content.style.maxHeight = content.scrollHeight + "px";
-            } else {
-              content.style.maxHeight = "0";
-            }
-          }
         },
         { signal }
       );
@@ -646,9 +635,18 @@ const yearGroups = Object.entries(
 
   /* ===== Content (accordion) ===== */
   .journey-content {
-    max-height: 0;
+    display: grid;
+    grid-template-rows: 0fr;
     overflow: hidden;
-    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .journey-header[aria-expanded="true"] + .journey-content {
+    grid-template-rows: 1fr;
+  }
+
+  .journey-content-inner {
+    overflow: hidden;
   }
 
   .journey-body {
@@ -663,39 +661,71 @@ const yearGroups = Object.entries(
     }
   }
 
-  /* Prose styles for markdown content */
-  .prose {
-    font-size: 0.875rem;
+  /* Use site's typography styles */
+  .journey-body :global(h1),
+  .journey-body :global(h2),
+  .journey-body :global(h3),
+  .journey-body :global(h4) {
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    color: var(--color-foreground);
+  }
+
+  .journey-body :global(h2) {
+    font-size: 1.25rem;
+  }
+
+  .journey-body :global(h3) {
+    font-size: 1.1rem;
+    font-family: var(--font-sriracha);
+    font-style: italic;
+  }
+
+  .journey-body :global(p) {
+    margin-bottom: 0.875rem;
     line-height: 1.7;
     color: var(--color-foreground);
-    opacity: 0.8;
+    opacity: 0.85;
   }
 
-  .prose :global(p) {
-    margin-bottom: 0.75rem;
+  .journey-body :global(ul),
+  .journey-body :global(ol) {
+    margin-left: 1.5rem;
+    margin-bottom: 0.875rem;
   }
 
-  .prose :global(ul),
-  .prose :global(ol) {
-    margin-left: 1.25rem;
-    margin-bottom: 0.75rem;
+  .journey-body :global(li) {
+    margin-bottom: 0.35rem;
+    line-height: 1.6;
   }
 
-  .prose :global(li) {
-    margin-bottom: 0.25rem;
+  .journey-body :global(li)::marker {
+    color: var(--color-accent);
   }
 
-  .prose :global(strong) {
+  .journey-body :global(strong) {
     font-weight: 600;
     color: var(--color-accent);
   }
 
-  .prose :global(code) {
+  .journey-body :global(code) {
     font-family: var(--font-mono);
-    font-size: 0.85em;
-    padding: 0.15rem 0.35rem;
+    font-size: 0.875em;
+    padding: 0.15rem 0.4rem;
     border-radius: 0.25rem;
     background: color-mix(in srgb, var(--color-foreground) 8%, transparent);
+  }
+
+  .journey-body :global(a) {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: opacity 0.2s ease;
+  }
+
+  .journey-body :global(a:hover) {
+    opacity: 0.8;
   }
 
   @media (max-width: 480px) {

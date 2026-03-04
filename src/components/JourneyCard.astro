@@ -25,9 +25,7 @@ const dateStr = date.toLocaleDateString("en-US", {
       <div class="journey-date">{dateStr}</div>
       <div class="journey-info">
         <div class="journey-title-row">
-          <span class="journey-title">
-            {entry.data.title}
-          </span>
+          <span class="journey-title">{entry.data.title}</span>
           <span class={`journey-type type-${entry.data.type}`}>
             {entry.data.type}
           </span>
@@ -62,8 +60,10 @@ const dateStr = date.toLocaleDateString("en-US", {
   </button>
 
   <div class="journey-content" data-journey-content>
-    <div class="journey-body prose">
-      <Content />
+    <div class="journey-content-inner">
+      <div class="journey-body">
+        <Content />
+      </div>
     </div>
   </div>
 </div>
