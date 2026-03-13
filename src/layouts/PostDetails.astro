@@ -77,7 +77,7 @@ const currentPostIndex = allPosts.findIndex(a => a.id === post.id);
 
 const prevPost = currentPostIndex !== 0 ? allPosts[currentPostIndex - 1] : null;
 const nextPost =
-  currentPostIndex !== allPosts.length ? allPosts[currentPostIndex + 1] : null;
+  currentPostIndex < allPosts.length - 1 ? allPosts[currentPostIndex + 1] : null;
 ---
 
 <Layout {...layoutProps}>
@@ -96,7 +96,7 @@ const nextPost =
       >
         <!-- Title -->
         <h1
-          transition:name={slugifyStr(title.replaceAll(".", "-"))}
+          transition:name={slugifyStr(title)}
           class="post-title text-3xl leading-tight font-bold tracking-tight sm:text-4xl lg:text-[2.75rem]"
         >
           {title}
@@ -185,18 +185,14 @@ const nextPost =
     </article>
 
     <!-- ═══════ Post footer section ═══════ -->
-    <!-- ═══════ Post footer section ═══════ -->
-    <div
-      class="relative mt-12 mb-8 flex items-center justify-center gap-4"
-      aria-hidden="true"
-    >
-      <div
-        class="relative h-px flex-1 bg-linear-to-r from-transparent via-border/30 to-accent/20"
-      >
-        <div
-          class="absolute inset-0 bg-linear-to-r from-transparent via-accent/40 to-accent/40 blur-[2px]"
-        >
-        </div>
+    <div class="relative mt-12 mb-8 flex items-center justify-center gap-4" aria-hidden="true">
+      <div class="relative h-px flex-1 bg-linear-to-r from-transparent via-border/30 to-accent/20">
+        <div class="absolute inset-0 bg-linear-to-r from-transparent via-accent/40 to-accent/40 blur-[2px]"></div>
+      </div>
+      
+      <div class="relative z-10 flex items-center gap-2 font-cartograph text-[10px] tracking-widest text-accent/40 uppercase select-none">
+        <span class="h-1.5 w-1.5 rounded-full bg-accent/50 shadow-[0_0_8px_var(--color-accent)]"></span>
+        fin
       </div>
 
       <div
@@ -224,12 +220,13 @@ const nextPost =
     <div
       class="mt-6 mb-8 flex flex-col items-center gap-6 sm:flex-row sm:items-start sm:justify-between"
     >
-      <!-- Tags -->
-      <div class="flex flex-wrap justify-center gap-2 sm:justify-start">
+      <!-- Tags (duplicated from header — aria-hidden to avoid double indexing) -->
+      <div class="flex flex-wrap justify-center gap-2 sm:justify-start" aria-hidden="true">
         {
           tags.map((tag: string) => (
             <a
               href={`/tags/${slugifyStr(tag)}/`}
+              tabindex="-1"
               class="inline-flex items-center gap-1 rounded-full border border-border/25 bg-muted/10 px-2.5 py-1 font-cartograph text-xs transition-all duration-200 hover:border-accent/40 hover:bg-accent/5 hover:text-accent"
             >
               <span class="opacity-40">#</span>
@@ -325,20 +322,18 @@ const nextPost =
   /** Create a progress indicator
    *  at the top */
   function createProgressBar() {
-    // Create the main container div
+    // Guard: avoid duplicating the bar on View Transitions re-runs
+    if (document.querySelector(".progress-container")) return;
+
     const progressContainer = document.createElement("div");
     progressContainer.className =
       "progress-container fixed top-0 z-50 h-1 w-full bg-background";
 
-    // Create the progress bar div
     const progressBar = document.createElement("div");
     progressBar.className = "progress-bar h-1 w-0 bg-accent";
     progressBar.id = "myBar";
 
-    // Append the progress bar to the progress container
     progressContainer.appendChild(progressBar);
-
-    // Append the progress container to the document body or any other desired parent element
     document.body.appendChild(progressContainer);
   }
   createProgressBar();
@@ -346,20 +341,27 @@ const nextPost =
   /** Update the progress bar
    *  when user scrolls */
   function updateScrollProgress() {
-    document.addEventListener("scroll", () => {
-      const winScroll =
-        document.body.scrollTop || document.documentElement.scrollTop;
-      const height =
-        document.documentElement.scrollHeight -
-        document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
-      if (document) {
-        const myBar = document.getElementById("myBar");
-        if (myBar) {
-          myBar.style.width = scrolled + "%";
+    const myBar = document.getElementById("myBar"); // cache ref once
+    if (!myBar) return;
+
+    let ticking = false;
+    document.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            const winScroll = document.documentElement.scrollTop;
+            const height =
+              document.documentElement.scrollHeight -
+              document.documentElement.clientHeight;
+            myBar.style.width = ((winScroll / height) * 100) + "%";
+            ticking = false;
+          });
+          ticking = true;
         }
-      }
-    });
+      },
+      { passive: true } // lets the browser optimise scroll handling
+    );
   }
   updateScrollProgress();
 
@@ -392,34 +394,33 @@ const nextPost =
     const copyButtonLabel = "Copy";
     const codeBlocks = Array.from(document.querySelectorAll("pre"));
 
-    for (const codeBlock of codeBlocks) {
+    // Pass 1: read all computed styles before touching the DOM
+    // (avoids a forced reflow on every iteration of the loop)
+    const topClasses = codeBlocks.map(cb =>
+      getComputedStyle(cb).getPropertyValue("--file-name-offset").trim() !== ""
+        ? "top-(--file-name-offset)"
+        : "-top-3"
+    );
+
+    // Pass 2: mutate DOM
+    codeBlocks.forEach((codeBlock, i) => {
       const wrapper = document.createElement("div");
       wrapper.style.position = "relative";
 
-      // Check if --file-name-offset custom property exists
-      const computedStyle = getComputedStyle(codeBlock);
-      const hasFileNameOffset =
-        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
-
-      // Determine the top positioning class
-      const topClass = hasFileNameOffset
-        ? "top-(--file-name-offset)"
-        : "-top-3";
-
       const copyButton = document.createElement("button");
-      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
+      copyButton.className = `copy-code absolute end-3 ${topClasses[i]} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
       copyButton.innerHTML = copyButtonLabel;
       codeBlock.setAttribute("tabindex", "0");
       codeBlock.appendChild(copyButton);
 
-      // wrap codebock with relative parent element
+      // wrap codeblock with relative parent element
       codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
       wrapper.appendChild(codeBlock);
 
       copyButton.addEventListener("click", async () => {
         await copyCode(codeBlock, copyButton);
       });
-    }
+    });
 
     async function copyCode(block, button) {
       const code = block.querySelector("code");
@@ -457,36 +458,37 @@ const nextPost =
     -webkit-text-fill-color: transparent;
   }
 
+  /* .post-tag-badge: no backdrop-filter — parent container already has
+     backdrop-blur-md, individual badge layers add no visual benefit
+     but cost a compositing layer each */
   .post-tag-badge {
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    /* intentionally empty — styles fully handled by Tailwind utilities */
   }
 
-  /* Hero Aurora glow layer */
+  /* Hero Aurora glow layer — gradient-only, no filter:blur (avoids repaint) */
   .post-hero-bg {
     position: absolute;
     inset: -2px;
-    opacity: 0.5;
+    opacity: 0.6;
     background:
       radial-gradient(
-        circle at 20% 0%,
-        color-mix(in oklab, var(--accent) 15%, transparent) 0%,
-        transparent 50%
+        circle at 20% 5%,
+        color-mix(in oklab, var(--accent) 12%, transparent) 0%,
+        transparent 45%
       ),
       radial-gradient(
-        ellipse 80% 60% at 80% 100%,
-        color-mix(in oklab, var(--accent) 10%, transparent) 0%,
-        transparent 60%
+        ellipse 80% 60% at 80% 95%,
+        color-mix(in oklab, var(--accent) 8%, transparent) 0%,
+        transparent 55%
       );
-    filter: blur(24px);
     pointer-events: none;
     z-index: 0;
     border-radius: 1.5rem; /* matches rounded-3xl */
   }
 
   .post-nav-link {
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    /* No backdrop-filter here — .post-nav-bg already provides the
+     blur effect via filter:blur(16px), avoiding a second compositing layer */
     background: color-mix(in srgb, var(--muted) 5%, transparent);
     position: relative;
     transition:
@@ -505,12 +507,12 @@ const nextPost =
     transform: translateY(0) scale(0.98);
   }
 
-  /* Aurora glow layer — always visible, intensifies on hover */
+  /* Aurora glow layer — opacity-only transition, single blur value */
   .post-nav-bg {
     position: absolute;
     inset: -1px;
-    opacity: 0.5;
-    transition: opacity 0.4s ease;
+    opacity: 0.4;
+    transition: opacity 0.35s ease;
     background:
       radial-gradient(
         ellipse 80% 60% at 20% 80%,
@@ -527,14 +529,19 @@ const nextPost =
         color-mix(in oklab, var(--accent) 6%, transparent) 0%,
         transparent 50%
       );
-    filter: blur(16px);
+    filter: blur(16px); /* single value — no change on hover → no repaint */
     pointer-events: none;
     z-index: -1;
     border-radius: inherit;
   }
 
   .post-nav-link:hover .post-nav-bg {
-    opacity: 1;
-    filter: blur(20px);
+    opacity: 1; /* only opacity transitions — compositor-friendly */
+  }
+
+  @media (pointer: fine) {
+    .post-nav-bg {
+      will-change: opacity;
+    }
   }
 </style>
