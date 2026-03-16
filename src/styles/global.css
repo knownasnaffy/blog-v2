@@ -39,7 +39,7 @@ html[data-theme="dark"] {
 em,
 i {
   font-family: var(--font-sriracha);
-  font-style: italic;
+  font-style: normal;
 }
 
 .spicy {
