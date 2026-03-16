@@ -48,11 +48,6 @@ jobs:
           package-manager: bun@latest # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
           build-cmd: bun run build # The command to run to build your site. Runs the package build script/task by default. (optional)
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ${{ env.BUILD_PATH }}/dist
-
   deploy:
     environment:
       name: github-pages
