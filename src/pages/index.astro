@@ -174,7 +174,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
               {recentPosts.length}]
             </span>
           </div>
-          <ul>
+          <ul class="space-y-4">
             {recentPosts.map(
               (data, index) =>
                 index < SITE.postPerIndex && <Card variant="h3" {...data} />

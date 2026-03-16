@@ -16,6 +16,7 @@ export const SITE = {
   editPost: {
     enabled: false,
     text: "Edit this post",
+    url: "https://github.com/knownasnaffy/blog-v2/edit/main"
   },
   dynamicOgImage: true,
   dir: "ltr", // "rtl" | "auto"

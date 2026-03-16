@@ -51,7 +51,7 @@ const totalPosts = page.total;
     </div>
 
     <!-- Posts Toolbar -->
-    <div class="posts-toolbar mb-8">
+    <div class="posts-toolbar my-8">
       <div class="posts-search-wrapper">
         <div id="posts-pagefind" class="premium-search"></div>
       </div>
@@ -83,7 +83,7 @@ const totalPosts = page.total;
             </p>
           </div>
         ) : (
-          <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-8">
             {page.data.map((data: any) => (
               <Card {...data} />
             ))}
