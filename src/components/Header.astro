@@ -158,9 +158,25 @@ const isActive = (path: string) => {
             </li>
 
             <li class="flex items-center">
+              {
+                SITE.lightAndDarkMode && (
+                  <li class="flex items-center">
+                    <button
+                      id="theme-btn"
+                      class="nav-icon-btn relative -ml-1 transition-colors duration-100"
+                      title="Toggles light & dark"
+                      aria-label="auto"
+                      aria-live="polite"
+                    >
+                      <IconMoon class="absolute top-1/2 left-1/2 -translate-1/2 scale-100 rotate-0 transition-transform duration-300 dark:scale-0 dark:-rotate-90" />
+                      <IconSunHigh class="absolute top-1/2 left-1/2 -translate-1/2 scale-0 rotate-90 transition-transform duration-300 dark:scale-100 dark:rotate-0" />
+                    </button>
+                  </li>
+                )
+              }
               <button
                 data-search-trigger
-                class="nav-search-btn ml-3"
+                class="nav-search-btn ml-1"
                 title="Search (⌘K)"
                 aria-label="Open search"
                 aria-keyshortcuts="Meta+K"
@@ -171,22 +187,6 @@ const isActive = (path: string) => {
                 >
               </button>
             </li>
-            {
-              SITE.lightAndDarkMode && (
-                <li class="flex items-center">
-                  <button
-                    id="theme-btn"
-                    class="nav-icon-btn relative ml-2 transition-colors duration-100"
-                    title="Toggles light & dark"
-                    aria-label="auto"
-                    aria-live="polite"
-                  >
-                    <IconMoon class="absolute top-1/2 left-1/2 -translate-1/2 scale-100 rotate-0 transition-transform duration-300 dark:scale-0 dark:-rotate-90" />
-                    <IconSunHigh class="absolute top-1/2 left-1/2 -translate-1/2 scale-0 rotate-90 transition-transform duration-300 dark:scale-100 dark:rotate-0" />
-                  </button>
-                </li>
-              )
-            }
           </ul>
         </nav>
       </div>
@@ -334,8 +334,8 @@ const isActive = (path: string) => {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2rem;
-    height: 2rem;
+    width: 2.8rem;
+    height: 2.05rem;
     border-radius: 0.5rem;
     transition:
       color 0.2s ease,
