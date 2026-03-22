@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
@@ -8,6 +8,10 @@ import getPostsByGroupCondition from "@/utils/getPostsByGroupCondition";
 import { SITE } from "@/config";
 
 const entries = await getCollection("journey");
+
+const renderedEntries = await Promise.all(
+  entries.map(async entry => ({ entry, Content: (await render(entry)).Content }))
+);
 
 const months = [
   "January",
@@ -96,12 +100,16 @@ const yearGroups = Object.entries(
                       )
                       .map(entry => {
                         const day = new Date(entry.data.pubDatetime).getDate();
+                        const { Content } = renderedEntries.find(r => r.entry.id === entry.id)!;
                         return (
-                          <div class="post-card" data-journey-entry>
+                          <div class="post-card accordion" data-journey-entry>
                             <div class="card-glow-effect" aria-hidden="true" />
                             <div class="card-noise" aria-hidden="true" />
                             <div class="post-dot" />
-                            <div class="post-inner flex flex-col items-start justify-start gap-2 sm:flex-row sm:gap-4">
+                            <button
+                              class="accordion__button post-inner flex flex-col items-start justify-start gap-2 sm:flex-row sm:gap-4"
+                              aria-expanded="false"
+                            >
                               <div class="flex -space-x-1 max-sm:items-center">
                                 <div class="post-day opacity-80 sm:opacity-30">
                                   {String(day).padStart(2, "0")}
@@ -120,6 +128,11 @@ const yearGroups = Object.entries(
                                 <p class="post-desc">
                                   {entry.data.description}
                                 </p>
+                              </div>
+                            </button>
+                            <div class="accordion__content">
+                              <div class="accordion__content-inner">
+                                <Content />
                               </div>
                             </div>
                           </div>
@@ -211,6 +224,20 @@ const yearGroups = Object.entries(
         const rect = card.getBoundingClientRect();
         card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
         card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+      }, { signal });
+
+      const btn = card.querySelector<HTMLElement>(".accordion__button")!;
+      const content = card.querySelector<HTMLElement>(".accordion__content")!;
+
+      btn.addEventListener("click", () => {
+        const isOpen = btn.getAttribute("aria-expanded") === "true";
+        if (!isOpen) {
+          btn.setAttribute("aria-expanded", "true");
+          content.style.maxHeight = content.scrollHeight + "px";
+        } else {
+          btn.setAttribute("aria-expanded", "false");
+          content.style.maxHeight = "0px";
+        }
       }, { signal });
     });
   });
@@ -517,7 +544,6 @@ const yearGroups = Object.entries(
   .post-card {
     position: relative;
     display: block;
-    padding: 1rem 1.25rem;
     border-radius: 1rem;
     background: color-mix(
       in srgb,
@@ -611,6 +637,73 @@ const yearGroups = Object.entries(
     border-color: var(--color-accent);
     box-shadow: 0 0 10px
       color-mix(in srgb, var(--color-accent) 50%, transparent);
+  }
+
+  .post-card {
+    cursor: pointer;
+  }
+
+  .accordion__button {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    color: inherit;
+    padding: 1rem 1.25rem;
+  }
+
+  .accordion__content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .accordion__content-inner {
+    padding: 0 1.25rem 1.25rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .accordion__content-inner :global(p) {
+    margin-bottom: 0.875rem;
+    line-height: 1.7;
+    opacity: 0.85;
+  }
+
+  .accordion__content-inner :global(h2),
+  .accordion__content-inner :global(h3),
+  .accordion__content-inner :global(h4) {
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .accordion__content-inner :global(ul),
+  .accordion__content-inner :global(ol) {
+    margin-left: 1.5rem;
+    margin-bottom: 0.875rem;
+  }
+
+  .accordion__content-inner :global(li) {
+    margin-bottom: 0.35rem;
+    line-height: 1.6;
+  }
+
+  .accordion__content-inner :global(li)::marker {
+    color: var(--color-accent);
+  }
+
+  .accordion__content-inner :global(strong) {
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+
+  .accordion__content-inner :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.25rem;
+    background: color-mix(in srgb, var(--color-foreground) 8%, transparent);
   }
 
   .post-inner {
