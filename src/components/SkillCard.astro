@@ -1,6 +1,7 @@
 ---
 import { slugifyStr } from "@/utils/slugify";
 import type { Skill } from "@/data/home/skills";
+import IconDot from "@/assets/icons/IconDot.svg";
 
 type Props = Skill;
 
@@ -44,9 +45,11 @@ const { name, category, experience, highlights } = Astro.props;
 
     <ul class="relative z-20 mt-2 text-sm opacity-65">
       {
-        highlights.map(item => (
-          <li>
-            <span class="mr-2">○</span>
+        highlights.map((item, index) => (
+          <li class="inline-flex items-start">
+            <span class="mr-2 inline-flex items-center">
+              <IconDot class="size-4.5 scale-150 text-foreground" />
+            </span>
             {item}
           </li>
         ))
