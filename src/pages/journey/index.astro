@@ -10,7 +10,10 @@ import { SITE } from "@/config";
 const entries = await getCollection("journey");
 
 const renderedEntries = await Promise.all(
-  entries.map(async entry => ({ entry, Content: (await render(entry)).Content }))
+  entries.map(async entry => ({
+    entry,
+    Content: (await render(entry)).Content,
+  }))
 );
 
 const months = [
@@ -100,7 +103,9 @@ const yearGroups = Object.entries(
                       )
                       .map(entry => {
                         const day = new Date(entry.data.pubDatetime).getDate();
-                        const { Content } = renderedEntries.find(r => r.entry.id === entry.id)!;
+                        const { Content } = renderedEntries.find(
+                          r => r.entry.id === entry.id
+                        )!;
                         return (
                           <div class="post-card accordion" data-journey-entry>
                             <div class="card-glow-effect" aria-hidden="true" />
@@ -114,15 +119,17 @@ const yearGroups = Object.entries(
                                 <div class="post-day opacity-80 sm:opacity-30">
                                   {String(day).padStart(2, "0")}
                                 </div>
-                                <span class="post-badge scale-75 translate-y-0.5 sm:hidden">
-                                  {entry.data.type.charAt(0).toUpperCase() + entry.data.type.slice(1)}
+                                <span class="post-badge translate-y-0.5 scale-75 sm:hidden">
+                                  {entry.data.type.charAt(0).toUpperCase() +
+                                    entry.data.type.slice(1)}
                                 </span>
                               </div>
                               <div class="post-info">
                                 <span class="post-title w-full items-center justify-between">
                                   {entry.data.title}
                                   <span class="post-badge hidden sm:inline-flex">
-                                    {entry.data.type.charAt(0).toUpperCase() + entry.data.type.slice(1)}
+                                    {entry.data.type.charAt(0).toUpperCase() +
+                                      entry.data.type.slice(1)}
                                   </span>
                                 </span>
                                 <p class="post-desc">
@@ -184,62 +191,74 @@ const yearGroups = Object.entries(
       );
     }
 
-    document.querySelectorAll<HTMLElement>("[data-archive-card]").forEach(card => {
-      const aurora = card.querySelector("[data-card-aurora]") as HTMLElement;
-      const border = card.querySelector("[data-card-border]") as HTMLElement;
-      if (!aurora) return;
+    document
+      .querySelectorAll<HTMLElement>("[data-archive-card]")
+      .forEach(card => {
+        const aurora = card.querySelector("[data-card-aurora]") as HTMLElement;
+        const border = card.querySelector("[data-card-border]") as HTMLElement;
+        if (!aurora) return;
 
-      card.addEventListener(
-        "mousemove",
-        e => {
-          requestAnimationFrame(() => {
-            const rect = (card as HTMLElement).getBoundingClientRect();
-            const x = (e as MouseEvent).clientX - rect.left;
-            const y = (e as MouseEvent).clientY - rect.top;
-            aurora.style.setProperty("--mx", `${x}px`);
-            aurora.style.setProperty("--my", `${y}px`);
-            aurora.style.opacity = "1";
-            if (border) {
-              border.style.setProperty("--mx", `${x}px`);
-              border.style.setProperty("--my", `${y}px`);
-              border.style.opacity = "1";
+        card.addEventListener(
+          "mousemove",
+          e => {
+            requestAnimationFrame(() => {
+              const rect = (card as HTMLElement).getBoundingClientRect();
+              const x = (e as MouseEvent).clientX - rect.left;
+              const y = (e as MouseEvent).clientY - rect.top;
+              aurora.style.setProperty("--mx", `${x}px`);
+              aurora.style.setProperty("--my", `${y}px`);
+              aurora.style.opacity = "1";
+              if (border) {
+                border.style.setProperty("--mx", `${x}px`);
+                border.style.setProperty("--my", `${y}px`);
+                border.style.opacity = "1";
+              }
+            });
+          },
+          { signal }
+        );
+
+        card.addEventListener(
+          "mouseleave",
+          () => {
+            aurora.style.opacity = "0";
+            if (border) border.style.opacity = "0";
+          },
+          { signal }
+        );
+      });
+
+    document
+      .querySelectorAll<HTMLElement>("[data-journey-entry]")
+      .forEach(card => {
+        card.addEventListener(
+          "mousemove",
+          (e: MouseEvent) => {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+            card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+          },
+          { signal }
+        );
+
+        const btn = card.querySelector<HTMLElement>(".accordion__button")!;
+        const content = card.querySelector<HTMLElement>(".accordion__content")!;
+
+        btn.addEventListener(
+          "click",
+          () => {
+            const isOpen = btn.getAttribute("aria-expanded") === "true";
+            if (!isOpen) {
+              btn.setAttribute("aria-expanded", "true");
+              content.style.maxHeight = content.scrollHeight + "px";
+            } else {
+              btn.setAttribute("aria-expanded", "false");
+              content.style.maxHeight = "0px";
             }
-          });
-        },
-        { signal }
-      );
-
-      card.addEventListener(
-        "mouseleave",
-        () => {
-          aurora.style.opacity = "0";
-          if (border) border.style.opacity = "0";
-        },
-        { signal }
-      );
-    });
-
-    document.querySelectorAll<HTMLElement>("[data-journey-entry]").forEach(card => {
-      card.addEventListener("mousemove", (e: MouseEvent) => {
-        const rect = card.getBoundingClientRect();
-        card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
-        card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
-      }, { signal });
-
-      const btn = card.querySelector<HTMLElement>(".accordion__button")!;
-      const content = card.querySelector<HTMLElement>(".accordion__content")!;
-
-      btn.addEventListener("click", () => {
-        const isOpen = btn.getAttribute("aria-expanded") === "true";
-        if (!isOpen) {
-          btn.setAttribute("aria-expanded", "true");
-          content.style.maxHeight = content.scrollHeight + "px";
-        } else {
-          btn.setAttribute("aria-expanded", "false");
-          content.style.maxHeight = "0px";
-        }
-      }, { signal });
-    });
+          },
+          { signal }
+        );
+      });
   });
 </script>
 
@@ -555,16 +574,20 @@ const yearGroups = Object.entries(
     overflow: hidden;
     color: var(--color-foreground);
     transition:
-      background 0.3s ease,
-      transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-      border-color 0.3s ease,
-      box-shadow 0.3s ease;
+      background 150ms ease,
+      transform 150ms ease,
+      border-color 150ms ease,
+      box-shadow 150ms ease;
     isolation: isolate;
   }
 
   .post-card:hover {
     transform: translateY(-2px);
-    background: color-mix(in oklab, var(--color-accent) 5%, var(--color-background));
+    background: color-mix(
+      in oklab,
+      var(--color-accent) 5%,
+      var(--color-background)
+    );
     border-color: color-mix(in srgb, var(--color-accent) 30%, transparent);
     box-shadow:
       0 8px 30px -8px color-mix(in srgb, var(--color-accent) 12%, transparent),
@@ -579,7 +602,7 @@ const yearGroups = Object.entries(
     border-radius: 1rem;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 150ms ease;
     background: radial-gradient(
       350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
       color-mix(in oklab, var(--color-accent) 8%, transparent) 0%,
@@ -604,7 +627,7 @@ const yearGroups = Object.entries(
     border-radius: 1rem;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 150ms ease;
     background-image: url("/noise.png");
     background-repeat: repeat;
     background-size: 128px 128px;
@@ -753,7 +776,7 @@ const yearGroups = Object.entries(
 
   .post-desc {
     margin-top: 0.2rem;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     line-height: 1.5;
     opacity: 0.55;
   }
