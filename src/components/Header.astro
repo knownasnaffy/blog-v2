@@ -2,7 +2,6 @@
 import IconMoon from "@/assets/icons/IconMoon.svg";
 import IconSearch from "@/assets/icons/IconSearch.svg";
 import IconCommand from "@/assets/icons/IconCommand.svg";
-import IconArchive from "@/assets/icons/IconArchive.svg";
 import IconGallery from "@/assets/icons/IconGallery.svg";
 import IconJourney from "@/assets/icons/IconJourney.svg";
 import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
@@ -97,24 +96,6 @@ const isActive = (path: string) => {
                 title="Ir a búsqueda">Search</a
               >
             </li>
-            {
-              SITE.showArchives && (
-                <li>
-                  <LinkButton
-                    href="/archives"
-                    class:list={[
-                      "nav-link",
-                      { "nav-active": isActive("/archives") },
-                    ]}
-                    title="Archives"
-                    aria-label="archives"
-                  >
-                    <IconArchive class="hidden sm:inline-block" />
-                    <span class="sm:sr-only">Archives</span>
-                  </LinkButton>
-                </li>
-              )
-            }
             {
               SITE.showGalleries && (
                 <li>
