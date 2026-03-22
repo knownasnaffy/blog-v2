@@ -2,8 +2,6 @@
 title: "First Professional Project"
 pubDatetime: 2024-06-20T10:00:00Z
 description: "Completed my first client project - a responsive portfolio website"
-skills: ["React", "TypeScript", "Tailwind CSS"]
-type: "milestone"
 ---
 
 Successfully delivered my first professional project. Built a fully responsive portfolio website for a client using modern web technologies.

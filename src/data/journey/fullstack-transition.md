@@ -2,8 +2,6 @@
 title: "Career Transition to Full-Stack Development"
 pubDatetime: 2025-03-10T10:00:00Z
 description: "Made the leap from frontend to full-stack, learning backend technologies and databases"
-skills: ["Node.js", "PostgreSQL", "Docker", "AWS"]
-type: "transition"
 ---
 
 This year marked a significant transition in my career as I expanded my skillset to become a full-stack developer. The journey involved learning server-side technologies, database design, and cloud infrastructure.
