@@ -663,10 +663,11 @@ const yearGroups = Object.entries(
   }
 
   .post-card {
-    cursor: pointer;
+    cursor: default;
   }
 
   .accordion__button {
+    cursor: pointer;
     width: 100%;
     background: none;
     border: none;
@@ -682,11 +683,12 @@ const yearGroups = Object.entries(
   }
 
   .accordion__content-inner {
-    padding: 0.75rem 1.25rem 1.25rem;
+    padding: 0.75rem 1.25rem 0.5rem;
     position: relative;
     z-index: 1;
-    border-top: 1px solid color-mix(in srgb, var(--color-foreground) 8%, transparent);
-    font-size: 0.8rem;
+    border-top: 1px solid
+      color-mix(in srgb, var(--color-foreground) 8%, transparent);
+    font-size: 0.875rem;
   }
 
   .accordion__content-inner :global(p) {
