@@ -529,6 +529,7 @@ const yearGroups = Object.entries(
     overflow: hidden;
     color: var(--color-foreground);
     transition:
+      background 0.3s ease,
       transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
       border-color 0.3s ease,
       box-shadow 0.3s ease;
@@ -537,6 +538,7 @@ const yearGroups = Object.entries(
 
   .post-card:hover {
     transform: translateY(-2px);
+    background: color-mix(in oklab, var(--color-accent) 5%, var(--color-background));
     border-color: color-mix(in srgb, var(--color-accent) 30%, transparent);
     box-shadow:
       0 8px 30px -8px color-mix(in srgb, var(--color-accent) 12%, transparent),
