@@ -45,7 +45,7 @@ const journey = defineCollection({
     title: z.string(),
     pubDatetime: z.date(),
     description: z.string(),
-    type: z.enum(["milestone", "transition", "learning"]),
+    type: z.enum(["milestone", "transition", "learning", "project"]),
     monthOnly: z.boolean().optional(),
     timezone: z.string().optional(),
   }),
