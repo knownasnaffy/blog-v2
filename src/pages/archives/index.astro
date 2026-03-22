@@ -58,7 +58,7 @@ const yearGroups = Object.entries(
           <span class="hero-badge">{totalPosts} posts</span>
           <span class="hero-badge"
             >{yearGroups.length}
-            {yearGroups.length === 1 ? "año" : "años"}</span
+            {yearGroups.length === 1 ? "year" : "years"}</span
           >
         </div>
       </div>
@@ -358,16 +358,17 @@ const yearGroups = Object.entries(
   }
 
   /* ===== Timeline ===== */
-  .timeline {
+  .year-section {
     position: relative;
     padding-left: 1.5rem;
+    margin-left: 0.25rem;
   }
 
-  .timeline::before {
+  .year-section::before {
     content: "";
     position: absolute;
     left: 0;
-    top: 0;
+    top: 4.25rem;
     bottom: 0;
     width: 2px;
     background: linear-gradient(
@@ -390,7 +391,7 @@ const yearGroups = Object.entries(
     align-items: center;
     gap: 0.5rem;
     padding: 0.6rem 1.25rem;
-    margin-left: -1.5rem;
+    margin-left: -2.75rem;
     margin-bottom: 1rem;
     border-radius: 999px;
     background: color-mix(
@@ -500,7 +501,7 @@ const yearGroups = Object.entries(
   .posts-list {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
   }
 
   .post-card {
@@ -667,11 +668,11 @@ const yearGroups = Object.entries(
   }
 
   @media (max-width: 480px) {
-    .timeline {
+    .year-section {
       padding-left: 1.25rem;
     }
     .year-marker {
-      margin-left: -1.25rem;
+      margin-left: -2.25rem;
     }
     .post-dot {
       left: -1.75rem;
