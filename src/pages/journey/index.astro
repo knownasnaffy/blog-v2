@@ -107,14 +107,14 @@ const yearGroups = Object.entries(
                                   {String(day).padStart(2, "0")}
                                 </div>
                                 <span class="post-badge scale-75 translate-y-0.5 sm:hidden">
-                                  {entry.data.type}
+                                  {entry.data.type.charAt(0).toUpperCase() + entry.data.type.slice(1)}
                                 </span>
                               </div>
                               <div class="post-info">
                                 <span class="post-title w-full items-center justify-between">
                                   {entry.data.title}
                                   <span class="post-badge hidden sm:inline-flex">
-                                    {entry.data.type}
+                                    {entry.data.type.charAt(0).toUpperCase() + entry.data.type.slice(1)}
                                   </span>
                                 </span>
                                 <p class="post-desc">
@@ -656,10 +656,6 @@ const yearGroups = Object.entries(
     font-size: 0.8rem;
     line-height: 1.5;
     opacity: 0.55;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
   }
 
   @media (max-width: 480px) {
