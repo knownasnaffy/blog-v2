@@ -5,6 +5,7 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import getPostsByGroupCondition from "@/utils/getPostsByGroupCondition";
+import IconDot from "@/assets/icons/IconDot.svg";
 import { SITE } from "@/config";
 
 const entries = await getCollection("journey");
@@ -116,10 +117,14 @@ const yearGroups = Object.entries(
                               aria-expanded="false"
                             >
                               <div class="flex -space-x-1 max-sm:items-center">
-                                <div class="post-day opacity-80 sm:opacity-30">
-                                  {String(day).padStart(2, "0")}
+                                <div class=`post-day opacity-80 sm:opacity-30 ${entry.data.monthOnly && "max-sm:hidden"}`>
+                                  {entry.data.monthOnly ? (
+                                    <IconDot class="size-3.5 translate-x-1.5 translate-y-2 scale-[800%]" />
+                                  ) : (
+                                    String(day).padStart(2, "0")
+                                  )}
                                 </div>
-                                <span class="post-badge translate-y-0.5 scale-75 sm:hidden">
+                                <span class=`post-badge translate-y-0.5 scale-75 sm:hidden ${entry.data.monthOnly && "max-sm:-ml-3"}`>
                                   {entry.data.type.charAt(0).toUpperCase() +
                                     entry.data.type.slice(1)}
                                 </span>
