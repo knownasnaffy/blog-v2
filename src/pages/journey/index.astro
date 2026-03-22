@@ -97,9 +97,9 @@ const yearGroups = Object.entries(
                       .map(entry => {
                         const day = new Date(entry.data.pubDatetime).getDate();
                         return (
-                          <div class="post-card" data-archive-card>
-                            <div class="post-aurora" data-card-aurora />
-                            <div class="post-border-glow" data-card-border />
+                          <div class="post-card" data-journey-entry>
+                            <div class="card-glow-effect" aria-hidden="true" />
+                            <div class="card-noise" aria-hidden="true" />
                             <div class="post-dot" />
                             <div class="post-inner flex flex-col items-start justify-start gap-2 sm:flex-row sm:gap-4">
                               <div class="flex -space-x-1 max-sm:items-center">
@@ -171,7 +171,7 @@ const yearGroups = Object.entries(
       );
     }
 
-    document.querySelectorAll("[data-archive-card]").forEach(card => {
+    document.querySelectorAll<HTMLElement>("[data-archive-card]").forEach(card => {
       const aurora = card.querySelector("[data-card-aurora]") as HTMLElement;
       const border = card.querySelector("[data-card-border]") as HTMLElement;
       if (!aurora) return;
@@ -204,6 +204,14 @@ const yearGroups = Object.entries(
         },
         { signal }
       );
+    });
+
+    document.querySelectorAll<HTMLElement>("[data-journey-entry]").forEach(card => {
+      card.addEventListener("mousemove", (e: MouseEvent) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+        card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+      }, { signal });
     });
   });
 </script>
@@ -536,50 +544,47 @@ const yearGroups = Object.entries(
       inset 0 1px 0 color-mix(in srgb, var(--color-accent) 5%, transparent);
   }
 
-  .post-aurora {
+  .card-glow-effect {
     position: absolute;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background: radial-gradient(
-      circle,
-      color-mix(in srgb, var(--color-accent) 20%, transparent),
-      color-mix(in srgb, var(--color-border) 8%, transparent) 40%,
-      transparent 70%
-    );
-    filter: blur(35px);
+    inset: 0;
+    z-index: 0;
+    border-radius: 1rem;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.35s ease;
-    transform: translate(
-      calc(var(--mx, 0px) - 100px),
-      calc(var(--my, 0px) - 100px)
+    transition: opacity 0.3s ease;
+    background: radial-gradient(
+      350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      color-mix(in oklab, var(--color-accent) 8%, transparent) 0%,
+      color-mix(in oklab, var(--color-accent) 6%, transparent) 15%,
+      color-mix(in oklab, var(--color-accent) 4%, transparent) 30%,
+      color-mix(in oklab, var(--color-accent) 2%, transparent) 45%,
+      color-mix(in oklab, var(--color-accent) 0.8%, transparent) 60%,
+      transparent 80%
     );
+    transform: translateZ(0);
     will-change: transform;
-    z-index: -1;
   }
 
-  .post-border-glow {
+  .post-card:hover .card-glow-effect {
+    opacity: 1;
+  }
+
+  .card-noise {
     position: absolute;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: radial-gradient(
-      circle,
-      color-mix(in srgb, var(--color-accent) 35%, transparent),
-      transparent 70%
-    );
-    filter: blur(18px);
+    inset: 0;
+    z-index: 1;
+    border-radius: 1rem;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.35s ease;
-    transform: translate(
-      calc(var(--mx, 0px) - 60px),
-      calc(var(--my, 0px) - 60px)
-    );
-    will-change: transform;
-    z-index: -1;
-    mix-blend-mode: screen;
+    transition: opacity 0.3s ease;
+    background-image: url("/noise.png");
+    background-repeat: repeat;
+    background-size: 64px 64px;
+    mix-blend-mode: overlay;
+  }
+
+  .post-card:hover .card-noise {
+    opacity: 0.4;
   }
 
   .post-dot {
