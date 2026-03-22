@@ -26,10 +26,10 @@ const months = [
 
 const totalEntries = entries.length;
 
+const groupByYear = getPostsByGroupCondition<"journey">;
+
 const yearGroups = Object.entries(
-  getPostsByGroupCondition(entries, entry =>
-    entry.data.pubDatetime.getFullYear()
-  )
+  groupByYear(entries, entry => entry.data.pubDatetime.getFullYear())
 ).sort(([a], [b]) => Number(b) - Number(a));
 ---
 
@@ -65,7 +65,7 @@ const yearGroups = Object.entries(
       {
         yearGroups.map(([year, yearEntries]) => {
           const monthGroups = Object.entries(
-            getPostsByGroupCondition(
+            groupByYear(
               yearEntries,
               entry => entry.data.pubDatetime.getMonth() + 1
             )
