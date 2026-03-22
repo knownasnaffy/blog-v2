@@ -10,14 +10,26 @@ import { SITE } from "@/config";
 const entries = await getCollection("journey");
 
 const months = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 
 const totalEntries = entries.length;
 
 const yearGroups = Object.entries(
-  getPostsByGroupCondition(entries, entry => entry.data.pubDatetime.getFullYear())
+  getPostsByGroupCondition(entries, entry =>
+    entry.data.pubDatetime.getFullYear()
+  )
 ).sort(([a], [b]) => Number(b) - Number(a));
 ---
 
@@ -89,13 +101,25 @@ const yearGroups = Object.entries(
                             <div class="post-aurora" data-card-aurora />
                             <div class="post-border-glow" data-card-border />
                             <div class="post-dot" />
-                            <div class="post-inner">
-                              <div class="post-day">
-                                {String(day).padStart(2, "0")}
+                            <div class="post-inner flex flex-col items-start justify-start gap-2 sm:flex-row sm:gap-4">
+                              <div class="flex -space-x-1 max-sm:items-center">
+                                <div class="post-day opacity-80 sm:opacity-30">
+                                  {String(day).padStart(2, "0")}
+                                </div>
+                                <span class="post-badge scale-75 translate-y-0.5 sm:hidden">
+                                  {entry.data.type}
+                                </span>
                               </div>
                               <div class="post-info">
-                                <span class="post-title">{entry.data.title}</span>
-                                <p class="post-desc">{entry.data.description}</p>
+                                <span class="post-title w-full items-center justify-between">
+                                  {entry.data.title}
+                                  <span class="post-badge hidden sm:inline-flex">
+                                    {entry.data.type}
+                                  </span>
+                                </span>
+                                <p class="post-desc">
+                                  {entry.data.description}
+                                </p>
                               </div>
                             </div>
                           </div>
@@ -122,7 +146,9 @@ const yearGroups = Object.entries(
     const { signal } = journeyCleanup;
 
     const hero = document.querySelector("[data-archive-hero]") as HTMLElement;
-    const heroMouse = document.querySelector("[data-archive-mouse]") as HTMLElement;
+    const heroMouse = document.querySelector(
+      "[data-archive-mouse]"
+    ) as HTMLElement;
     if (hero && heroMouse) {
       hero.addEventListener(
         "mousemove",
@@ -136,7 +162,13 @@ const yearGroups = Object.entries(
         },
         { signal }
       );
-      hero.addEventListener("mouseleave", () => { heroMouse.style.opacity = "0"; }, { signal });
+      hero.addEventListener(
+        "mouseleave",
+        () => {
+          heroMouse.style.opacity = "0";
+        },
+        { signal }
+      );
     }
 
     document.querySelectorAll("[data-archive-card]").forEach(card => {
@@ -184,11 +216,17 @@ const yearGroups = Object.entries(
     border-radius: 1.5rem;
     padding: 2.5rem 2rem;
     margin-bottom: 2.5rem;
-    background: color-mix(in srgb, var(--color-foreground) 3%, var(--color-background));
+    background: color-mix(
+      in srgb,
+      var(--color-foreground) 3%,
+      var(--color-background)
+    );
     border: 1px solid color-mix(in srgb, var(--color-accent) 12%, transparent);
   }
   @media (min-width: 640px) {
-    .archive-hero { padding: 3rem; }
+    .archive-hero {
+      padding: 3rem;
+    }
   }
 
   .aurora-orb {
@@ -199,48 +237,118 @@ const yearGroups = Object.entries(
     will-change: transform;
   }
   .aurora-orb-1 {
-    width: 300px; height: 300px; top: -30%; left: -10%;
-    background: radial-gradient(circle, color-mix(in srgb, var(--color-accent) 25%, transparent), transparent 70%);
+    width: 300px;
+    height: 300px;
+    top: -30%;
+    left: -10%;
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--color-accent) 25%, transparent),
+      transparent 70%
+    );
     animation: orb-1 7s ease-in-out infinite alternate;
   }
   .aurora-orb-2 {
-    width: 250px; height: 250px; top: 10%; right: -5%;
-    background: radial-gradient(circle, color-mix(in srgb, var(--color-border) 20%, transparent), transparent 70%);
+    width: 250px;
+    height: 250px;
+    top: 10%;
+    right: -5%;
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--color-border) 20%, transparent),
+      transparent 70%
+    );
     animation: orb-2 9s ease-in-out infinite alternate;
   }
   .aurora-orb-3 {
-    width: 200px; height: 200px; bottom: -20%; left: 40%;
-    background: radial-gradient(circle, color-mix(in srgb, var(--color-accent) 12%, transparent), transparent 70%);
+    width: 200px;
+    height: 200px;
+    bottom: -20%;
+    left: 40%;
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--color-accent) 12%, transparent),
+      transparent 70%
+    );
     animation: orb-3 11s ease-in-out infinite alternate;
   }
-  @keyframes orb-1 { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(40px,20px) scale(1.2); } }
-  @keyframes orb-2 { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(-30px,30px) scale(1.15); } }
-  @keyframes orb-3 { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(20px,-25px) scale(1.1); } }
+  @keyframes orb-1 {
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+    100% {
+      transform: translate(40px, 20px) scale(1.2);
+    }
+  }
+  @keyframes orb-2 {
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+    100% {
+      transform: translate(-30px, 30px) scale(1.15);
+    }
+  }
+  @keyframes orb-3 {
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+    100% {
+      transform: translate(20px, -25px) scale(1.1);
+    }
+  }
 
   .aurora-mouse {
     position: absolute;
-    width: 350px; height: 350px;
+    width: 350px;
+    height: 350px;
     border-radius: 50%;
-    background: radial-gradient(circle, color-mix(in srgb, var(--color-accent) 18%, transparent), color-mix(in srgb, var(--color-border) 8%, transparent) 40%, transparent 70%);
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--color-accent) 18%, transparent),
+      color-mix(in srgb, var(--color-border) 8%, transparent) 40%,
+      transparent 70%
+    );
     filter: blur(50px);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.4s ease;
-    transform: translate(calc(var(--mx, 0px) - 175px), calc(var(--my, 0px) - 175px));
+    transform: translate(
+      calc(var(--mx, 0px) - 175px),
+      calc(var(--my, 0px) - 175px)
+    );
     will-change: transform;
     z-index: 1;
   }
 
   .glow-text {
-    background: linear-gradient(135deg, var(--color-foreground), var(--color-accent));
+    background: linear-gradient(
+      135deg,
+      var(--color-foreground),
+      var(--color-accent)
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 0 25px color-mix(in srgb, var(--color-accent) 25%, transparent));
+    filter: drop-shadow(
+      0 0 25px color-mix(in srgb, var(--color-accent) 25%, transparent)
+    );
   }
 
   .hero-badge {
     display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    background: color-mix(in srgb, var(--color-accent) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-accent) 15%, transparent);
+    backdrop-filter: blur(8px);
+  }
+
+  .post-badge {
     align-items: center;
     gap: 0.25rem;
     padding: 0.3rem 0.85rem;
@@ -268,7 +376,12 @@ const yearGroups = Object.entries(
     top: 4.25rem;
     bottom: 0;
     width: 2px;
-    background: linear-gradient(180deg, color-mix(in srgb, var(--color-accent) 30%, transparent), color-mix(in srgb, var(--color-border) 15%, transparent) 50%, color-mix(in srgb, var(--color-accent) 5%, transparent));
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-accent) 30%, transparent),
+      color-mix(in srgb, var(--color-border) 15%, transparent) 50%,
+      color-mix(in srgb, var(--color-accent) 5%, transparent)
+    );
     border-radius: 999px;
   }
 
@@ -278,39 +391,58 @@ const yearGroups = Object.entries(
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.6rem 1.25rem;
+    padding: 0.6rem 1.5rem;
     margin-left: -2.75rem;
     margin-bottom: 1rem;
     border-radius: 999px;
-    background: color-mix(in srgb, var(--color-foreground) 3%, var(--color-background));
+    background: color-mix(
+      in srgb,
+      var(--color-foreground) 3%,
+      var(--color-background)
+    );
     border: 1px solid color-mix(in srgb, var(--color-accent) 15%, transparent);
     overflow: hidden;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
     z-index: 2;
   }
 
   .year-marker:hover {
     border-color: color-mix(in srgb, var(--color-accent) 35%, transparent);
-    box-shadow: 0 4px 20px color-mix(in srgb, var(--color-accent) 12%, transparent);
+    box-shadow: 0 4px 20px
+      color-mix(in srgb, var(--color-accent) 12%, transparent);
   }
 
   .year-aurora {
     position: absolute;
-    width: 150px; height: 150px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
-    background: radial-gradient(circle, color-mix(in srgb, var(--color-accent) 25%, transparent), transparent 70%);
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--color-accent) 25%, transparent),
+      transparent 70%
+    );
     filter: blur(25px);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.35s ease;
-    transform: translate(calc(var(--mx, 0px) - 75px), calc(var(--my, 0px) - 75px));
+    transform: translate(
+      calc(var(--mx, 0px) - 75px),
+      calc(var(--my, 0px) - 75px)
+    );
     z-index: -1;
   }
 
   .year-label {
     font-size: 1.5rem;
     font-weight: 800;
-    background: linear-gradient(135deg, var(--color-foreground), var(--color-accent));
+    background: linear-gradient(
+      135deg,
+      var(--color-foreground),
+      var(--color-accent)
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -320,13 +452,16 @@ const yearGroups = Object.entries(
     font-size: 0.75rem;
     font-weight: 600;
     padding: 0.15rem 0.5rem;
+    margin-right: -0.2rem;
     border-radius: 999px;
     color: var(--color-accent);
     background: color-mix(in srgb, var(--color-accent) 10%, transparent);
   }
 
   /* ===== Month ===== */
-  .month-section { margin-bottom: 1.5rem; }
+  .month-section {
+    margin-bottom: 1.5rem;
+  }
 
   .month-header {
     display: flex;
@@ -357,7 +492,11 @@ const yearGroups = Object.entries(
   .month-line {
     flex: 1;
     height: 1px;
-    background: linear-gradient(90deg, color-mix(in srgb, var(--color-accent) 15%, transparent), transparent);
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-accent) 15%, transparent),
+      transparent
+    );
   }
 
   /* ===== Entry Card ===== */
@@ -372,11 +511,19 @@ const yearGroups = Object.entries(
     display: block;
     padding: 1rem 1.25rem;
     border-radius: 1rem;
-    background: color-mix(in srgb, var(--color-foreground) 2%, var(--color-background));
-    border: 1px solid color-mix(in srgb, var(--color-foreground) 6%, transparent);
+    background: color-mix(
+      in srgb,
+      var(--color-foreground) 2%,
+      var(--color-background)
+    );
+    border: 1px solid
+      color-mix(in srgb, var(--color-foreground) 6%, transparent);
     overflow: hidden;
     color: var(--color-foreground);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
     isolation: isolate;
   }
 
@@ -391,28 +538,45 @@ const yearGroups = Object.entries(
 
   .post-aurora {
     position: absolute;
-    width: 200px; height: 200px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
-    background: radial-gradient(circle, color-mix(in srgb, var(--color-accent) 20%, transparent), color-mix(in srgb, var(--color-border) 8%, transparent) 40%, transparent 70%);
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--color-accent) 20%, transparent),
+      color-mix(in srgb, var(--color-border) 8%, transparent) 40%,
+      transparent 70%
+    );
     filter: blur(35px);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.35s ease;
-    transform: translate(calc(var(--mx, 0px) - 100px), calc(var(--my, 0px) - 100px));
+    transform: translate(
+      calc(var(--mx, 0px) - 100px),
+      calc(var(--my, 0px) - 100px)
+    );
     will-change: transform;
     z-index: -1;
   }
 
   .post-border-glow {
     position: absolute;
-    width: 120px; height: 120px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    background: radial-gradient(circle, color-mix(in srgb, var(--color-accent) 35%, transparent), transparent 70%);
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--color-accent) 35%, transparent),
+      transparent 70%
+    );
     filter: blur(18px);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.35s ease;
-    transform: translate(calc(var(--mx, 0px) - 60px), calc(var(--my, 0px) - 60px));
+    transform: translate(
+      calc(var(--mx, 0px) - 60px),
+      calc(var(--my, 0px) - 60px)
+    );
     will-change: transform;
     z-index: -1;
     mix-blend-mode: screen;
@@ -422,64 +586,73 @@ const yearGroups = Object.entries(
     position: absolute;
     left: -2rem;
     top: 50%;
-    width: 10px; height: 10px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background: var(--color-background);
     border: 2px solid color-mix(in srgb, var(--color-accent) 40%, transparent);
     transform: translateY(-50%);
-    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      background 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
     z-index: 3;
   }
 
   .post-card:hover .post-dot {
     background: var(--color-accent);
     border-color: var(--color-accent);
-    box-shadow: 0 0 10px color-mix(in srgb, var(--color-accent) 50%, transparent);
+    box-shadow: 0 0 10px
+      color-mix(in srgb, var(--color-accent) 50%, transparent);
   }
 
   .post-inner {
     position: relative;
     z-index: 1;
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
   }
 
   .post-day {
-    flex-shrink: 0;
+    /* flex-shrink: 0; */
     font-size: 1.5rem;
     font-weight: 800;
     line-height: 1;
     color: var(--color-accent);
-    opacity: 0.35;
-    transition: opacity 0.3s ease, text-shadow 0.3s ease;
+    transition:
+      opacity 0.3s ease,
+      text-shadow 0.3s ease;
     min-width: 2rem;
-    text-align: center;
     padding-top: 0.15rem;
   }
 
   .post-card:hover .post-day {
     opacity: 0.8;
-    text-shadow: 0 0 15px color-mix(in srgb, var(--color-accent) 40%, transparent);
+    text-shadow: 0 0 15px
+      color-mix(in srgb, var(--color-accent) 40%, transparent);
   }
 
-  .post-info { flex: 1; min-width: 0; }
+  .post-info {
+    flex: 1;
+    min-width: 0;
+  }
 
   .post-title {
-    display: block;
+    display: inline-flex;
     font-size: 1rem;
     font-weight: 600;
     line-height: 1.4;
-    transition: color 0.2s ease, text-shadow 0.3s ease;
+    transition:
+      color 0.2s ease,
+      text-shadow 0.3s ease;
   }
 
   .post-card:hover .post-title {
     color: var(--color-accent);
-    text-shadow: 0 0 20px color-mix(in srgb, var(--color-accent) 20%, transparent);
+    text-shadow: 0 0 20px
+      color-mix(in srgb, var(--color-accent) 20%, transparent);
   }
 
   .post-desc {
-    margin-top: 0.25rem;
+    margin-top: 0.2rem;
     font-size: 0.8rem;
     line-height: 1.5;
     opacity: 0.55;
@@ -490,9 +663,19 @@ const yearGroups = Object.entries(
   }
 
   @media (max-width: 480px) {
-    .year-section { padding-left: 1.25rem; }
-    .year-marker { margin-left: -2.25rem; }
-    .post-dot { left: -1.75rem; width: 8px; height: 8px; }
-    .post-day { font-size: 1.25rem; }
+    .year-section {
+      padding-left: 1.25rem;
+    }
+    .year-marker {
+      margin-left: -2.25rem;
+    }
+    .post-dot {
+      left: -1.75rem;
+      width: 8px;
+      height: 8px;
+    }
+    .post-day {
+      font-size: 1.25rem;
+    }
   }
 </style>
