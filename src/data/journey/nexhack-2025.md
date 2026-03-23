@@ -18,3 +18,8 @@ Unlike earlier experiences, this involved actually building something within a l
 ## Impact
 
 Even though we did not win, it was a fun and valuable experience. It gave me a better sense of how I perform under pressure and how to approach building when time is limited.
+
+## References
+
+- [Gallery](/galleries/nexhack-2025/)
+- [NexHack Website](https://nexhack.geetauniversity.edu.in/)
