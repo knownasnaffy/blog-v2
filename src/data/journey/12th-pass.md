@@ -2,16 +2,16 @@
 title: "Completed School and Started Computer Science Degree"
 pubDatetime: 2024-07-01T00:00:00Z
 monthOnly: true
-description: "Completed 12th grade and began pursuing a degree in Computer Science and Engineering"
+description: "Completed 12th grade and began pursuing a degree in CSE"
 type: "milestone"
 ---
 
-In 2024, I completed my 12th grade and started my undergraduate studies in Computer Science and Engineering.
+In 2024, I completed my 12th grade and started my undergraduate studies in B.Tech. Computer Science and Engineering.
 
 ## What changed
 
-This marked the transition from learning independently to studying the subject in a more structured environment. At the same time, I continued building and learning outside the curriculum.
+This was a new phase of life more than anything else. Nothing dramatic changed in how I approached development.
 
 ## Impact
 
-This phase added structure, but my approach to learning stayed largely the same. I kept focusing on practical skills and real-world development alongside academics.
+It marked a reset in routine and environment, while I continued learning and building alongside academics.
