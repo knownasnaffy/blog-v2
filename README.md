@@ -6,6 +6,14 @@ This project was forked from [0xdres/astro-devosfera](https://github.com/0xdres/
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/cb066340-13bf-40c5-ae8d-268a7198c8cc" />
 
+<details>
+
+<summary><h2>Full Screenshot</h2></summary>
+
+<img width="1289" height="2042" alt="2026-04-03 14 12 20 blog barinr xyz 0d2e39d5637e" src="https://github.com/user-attachments/assets/02fd8cdf-16e6-435e-982a-9bb33c582799" />
+
+</details>
+
 ## Features
 
 - **Astro 5.0** - High-performance static site generation.
@@ -17,7 +25,7 @@ This project was forked from [0xdres/astro-devosfera](https://github.com/0xdres/
 
 ## Quick Start
 
-Ensure you have [Bun](https://bun.sh/) installed.
+Ensure you have [Bun](https://bun.sh/) installed. Or use `npm` or equivalent if you want to use Node.js.
 
 ```bash
 # 1. Install dependencies
